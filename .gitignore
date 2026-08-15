@@ -1,0 +1,12 @@
+/artifacts/
+/build/
+
+*.o
+*.cubin
+*.fatbin
+*.ptx
+*.log
+
+.idea/
+.vscode/
+*~
