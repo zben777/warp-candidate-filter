@@ -17,8 +17,7 @@ SOURCES := \
 	src/v4.cu \
 	src/v5.cu \
 	src/v6.cu \
-	src/v7.cu \
-	src/v8.cu
+	src/v7.cu
 
 VERSIONS := $(basename $(notdir $(SOURCES)))
 TARGETS := $(addprefix $(BUILD_DIR)/,$(VERSIONS))

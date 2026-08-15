@@ -39,12 +39,24 @@ The default benchmark processes 4,194,304 groups, or 16,777,216 A-B pairs.
 | `v3` | Fixed-32 specialized binary search |
 | `v4` | Fixed-32 search with two-way ILP |
 | `v5` | Block-coalesced output stores |
-| `v6` | `int4`/128-bit candidate loads |
-| `v7` | `cp.async` candidate prefetch overlapping `A` load and sort |
-| `v8` | Two-group `cp.async` pipeline |
+| `v6` | Four 8-lane subwarps with direct 128-bit candidate loads |
+| `v7` | `v6` mapping with 16-byte `cp.async` candidate prefetch |
 
-`v7` is the fastest measured variant on RTX 4090, although `v4` through `v7`
-are within about 1%.
+`v7` is the recommended implementation. It preserves the original input
+contract while matching the best measured performance of the layout-changing
+experiments.
+
+### Input layouts
+
+Every mainline version consumes the same B-major layout:
+
+```text
+[group][B][element]
+```
+
+No mainline timing requires or excludes a layout-conversion step. Earlier
+lane-major experiments are retained under `archive/transposed-layout/` and are
+not part of the default build or benchmark.
 
 ## Reference Results
 
@@ -61,17 +73,20 @@ report zero validation errors. Times are means over five benchmark runs.
 | `v3` | 3.038 ms | 927.6 GB/s | 1.39x |
 | `v4` | 3.038 ms | 927.6 GB/s | 1.39x |
 | `v5` | 3.025 ms | 931.7 GB/s | 1.39x |
-| `v6` | 3.020 ms | 933.3 GB/s | 1.39x |
-| `v7` | **3.018 ms** | **934.1 GB/s** | **1.39x** |
-| `v8` | 3.039 ms | 927.6 GB/s | 1.38x |
+| `v6` | 3.019 ms | 933.5 GB/s | 1.39x |
+| `v7` | **3.018 ms** | **934.0 GB/s** | **1.39x** |
 
-On RTX 4090, `v7` reaches approximately 932 GB/s measured DRAM throughput and
-94.9% of peak sustained DRAM throughput in Nsight Compute. The executable's
-`Effective BW` field is logical traffic divided by kernel time; it is useful
-for comparing variants but is not a hardware-counter measurement.
+The executable's `Effective BW` field is logical traffic divided by kernel
+time; it is useful for comparing variants but is not a hardware-counter
+measurement. An archived lane-major predecessor with the same search workload
+measured approximately 932 GB/s DRAM throughput and 94.9% of peak sustained
+throughput in Nsight Compute. Its report remains in the archive and is not
+presented as a profile of the mainline `v7`.
 
 The later variants reach the RTX 4090 DRAM bandwidth ceiling, compressing their
 timing differences. `v7` improves kernel time by 28.3% over `v0`, or 1.39x.
+Relative to direct-load `v6`, asynchronous B prefetch improves time by
+approximately 0.05%.
 
 ## Requirements
 
@@ -126,6 +141,7 @@ testing GPUs whose memory clocks may thermally throttle.
 .
 |-- src/                 CUDA benchmark variants
 |-- profiles/            Nsight Compute reports and SASS snapshots
+|-- archive/             Layout-changing experiments excluded from mainline
 |-- scripts/             Benchmark automation
 |-- artifacts/           Local historical binaries (ignored by Git)
 |-- Makefile
@@ -133,5 +149,5 @@ testing GPUs whose memory clocks may thermally throttle.
 ```
 
 Nsight Compute reports can be opened with `ncu-ui` or imported into a newer
-compatible Nsight Compute installation. Reports are retained as supporting
-evidence; generated executables are intentionally not tracked.
+compatible Nsight Compute installation. Generated executables are intentionally
+not tracked.
