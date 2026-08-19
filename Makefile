@@ -17,7 +17,8 @@ SOURCES := \
 	src/v4.cu \
 	src/v5.cu \
 	src/v6.cu \
-	src/v7.cu
+	src/v7.cu \
+	src/v8.cu
 
 VERSIONS := $(basename $(notdir $(SOURCES)))
 TARGETS := $(addprefix $(BUILD_DIR)/,$(VERSIONS))
@@ -31,6 +32,9 @@ $(VERSIONS): %: $(BUILD_DIR)/%
 $(BUILD_DIR)/%: src/%.cu | $(BUILD_DIR)
 	$(NVCC) $(NVCC_FLAGS) -arch=sm_89 \
 		-DNUM_B_LISTS=$(NUM_B_LISTS) $(EXTRA_NVCC_FLAGS) $< -o $@
+
+$(BUILD_DIR)/v7: src/v6.cu
+$(BUILD_DIR)/v8: src/v6.cu
 
 $(BUILD_DIR):
 	mkdir -p $@

@@ -16,12 +16,20 @@
 #define SUBWARP_USE_CP_ASYNC 0
 #endif
 
+#ifndef SUBWARP_FORCE_EARLY_CP_ASYNC
+#define SUBWARP_FORCE_EARLY_CP_ASYNC 0
+#endif
+
 #ifndef SUBWARP_KERNEL
 #define SUBWARP_KERNEL v6_subwarp_int4_kernel
 #endif
 
 #ifndef SUBWARP_VARIANT_LABEL
 #define SUBWARP_VARIANT_LABEL "V6 4x8 Subwarp int4 Candidate Filter"
+#endif
+
+#ifndef SUBWARP_OVERLAP_LABEL
+#define SUBWARP_OVERLAP_LABEL "compiler-scheduled async window"
 #endif
 
 constexpr int WARP_SIZE = 32;
@@ -36,6 +44,8 @@ constexpr unsigned FULL_MASK = 0xffffffffu;
 
 static_assert(NUM_B_LISTS == 4, "V6 requires four B lists");
 static_assert(BLOCK_SIZE % WARP_SIZE == 0, "Invalid block size");
+static_assert(!SUBWARP_FORCE_EARLY_CP_ASYNC || SUBWARP_USE_CP_ASYNC,
+              "Forced async scheduling requires cp.async");
 
 #define CUDA_CHECK(call)                                                   \
     do {                                                                   \
@@ -186,6 +196,9 @@ void SUBWARP_KERNEL(
 #if SUBWARP_USE_CP_ASYNC
     __shared__ __align__(16) int4 s_b4[BLOCK_SIZE];
 #endif
+#if SUBWARP_FORCE_EARLY_CP_ASYNC
+    __shared__ volatile int s_schedule_a[BLOCK_SIZE];
+#endif
 
     int tx = threadIdx.x;
     int warp_id = tx >> 5;
@@ -203,14 +216,34 @@ void SUBWARP_KERNEL(
         reinterpret_cast<const int4*>(input_b);
     const int4* b_source = input_b4 + group_id * WARP_SIZE + lane;
 
-#if SUBWARP_USE_CP_ASYNC
-    // Start B transfer first, then hide its latency behind A load and sort.
+#if SUBWARP_USE_CP_ASYNC && SUBWARP_FORCE_EARLY_CP_ASYNC
+    // Issue A, then B, before any operation consumes A. The warp ordering
+    // point prevents ptxas from sinking LDGSTS to the end of the sort; it does
+    // not wait for the asynchronous copy to complete.
+    int a_value = input_a[group_id * WARP_SIZE + lane];
+    s_schedule_a[tx] = a_value;
     cp_async_16(&s_b4[tx], b_source);
     cp_async_commit();
-#endif
+    __syncthreads();
+    a_value = s_schedule_a[tx];
+#elif SUBWARP_USE_CP_ASYNC
+    // Baseline async path retained for a strict scheduling comparison.
+    cp_async_16(&s_b4[tx], b_source);
+    cp_async_commit();
 
     int a_value = input_a[group_id * WARP_SIZE + lane];
+#else
+    int a_value = input_a[group_id * WARP_SIZE + lane];
+#endif
+
     int sorted_a = warp_bitonic_sort(a_value, lane);
+
+#if SUBWARP_FORCE_EARLY_CP_ASYNC
+    // Keep the async wait after the full sort. The shared round-trip gives
+    // the wait a real data dependency that ptxas cannot fold.
+    s_schedule_a[tx] = sorted_a;
+    sorted_a = s_schedule_a[tx];
+#endif
 
 #if SUBWARP_USE_CP_ASYNC
     cp_async_wait_all();
@@ -406,7 +439,7 @@ int main()
     printf("Output store    : Block-Coalesced\n");
 #if SUBWARP_USE_CP_ASYNC
     printf("B transfer      : cp.async 16B/thread\n");
-    printf("Overlap         : B copy with A load + sort\n");
+    printf("Overlap         : %s\n", SUBWARP_OVERLAP_LABEL);
 #else
     printf("B transfer      : direct int4 load\n");
 #endif
