@@ -1,6 +1,11 @@
-Collected at    : 2026-08-19T17:11:58+08:00
-Source version  : v7
-Executable      : v7_real_4b
+Collected:
+2026-08-19T18:04:33+08:00
+
+Version:
+v7
+
+Executable:
+v7_real_4b
 
 GPU             : NVIDIA GeForce RTX 4090
 Grid            : <<<262144, 512>>>
@@ -13,11 +18,11 @@ A memory        : 512.00 MiB
 B memory        : 2048.00 MiB
 
 V7 4x8 Subwarp cp.async Candidate Filter
-Average time    : 3.017154 ms
-Groups/s        : 1390.152 M
-A-B pairs/s     : 5560.609 M
+Average time    : 3.016868 ms
+Groups/s        : 1390.284 M
+A-B pairs/s     : 5561.137 M
 Logical traffic : 2.819 GB
-Effective BW    : 934.182 GB/s
+Effective BW    : 934.271 GB/s
 Search stages   : 39 / group
 Search type     : Generic Binary Search
 Output store    : Block-Coalesced

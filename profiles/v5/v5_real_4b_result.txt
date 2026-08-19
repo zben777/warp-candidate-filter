@@ -1,6 +1,11 @@
-Collected at    : 2026-08-19T17:11:50+08:00
-Source version  : v5
-Executable      : v5_real_4b
+Collected:
+2026-08-19T18:04:21+08:00
+
+Version:
+v5
+
+Executable:
+v5_real_4b
 
 GPU             : NVIDIA GeForce RTX 4090
 Grid            : <<<262144, 512>>>
@@ -12,11 +17,11 @@ A memory        : 512.00 MiB
 B memory        : 2048.00 MiB
 
 V5 1A-NB V1 + Block-Coalesced Output Store
-Average time    : 3.025490 ms
-Groups/s        : 1386.322 M
-A-B pairs/s     : 5545.289 M
+Average time    : 3.022521 ms
+Groups/s        : 1387.684 M
+A-B pairs/s     : 5550.737 M
 Logical traffic : 2.819 GB
-Effective BW    : 931.609 GB/s
+Effective BW    : 932.524 GB/s
 Search stages   : 39 / group
 Search type     : Generic Binary Search
 Output store    : Block-Coalesced

@@ -2,21 +2,24 @@
 
 set -euo pipefail
 
+
 usage()
 {
     cat <<'EOF'
-Usage: ./scripts/collect_profiles.sh [--sudo-ncu]
-
-Rebuild and collect one run plus Nsight Compute report files for every kernel
-version. Use --sudo-ncu when GPU performance counters require administrator
-privileges.
+Usage:
+    ./scripts/collect_profiles.sh [--sudo-ncu]
 EOF
 }
 
+
 use_sudo_ncu=0
+
 case "${1:-}" in
-    "") ;;
-    --sudo-ncu) use_sudo_ncu=1 ;;
+    "")
+        ;;
+    --sudo-ncu)
+        use_sudo_ncu=1
+        ;;
     -h|--help)
         usage
         exit 0
@@ -27,19 +30,28 @@ case "${1:-}" in
         ;;
 esac
 
+
+
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_dir="$(cd "${script_dir}/.." && pwd)"
+
 profiles_dir="${repo_dir}/profiles"
+
 staging_dir="$(mktemp -d "${repo_dir}/.profiles-staging.XXXXXX")"
 backup_dir="${repo_dir}/.profiles-backup.$$"
 
+
+
 cleanup()
 {
-    if [[ -n "${staging_dir:-}" && -d "${staging_dir}" ]]; then
+    if [[ -d "${staging_dir}" ]]; then
         rm -rf "${staging_dir}"
     fi
 }
+
 trap cleanup EXIT
+
+
 
 versions=(
     v0
@@ -55,6 +67,8 @@ versions=(
     v8
 )
 
+
+
 declare -A kernels=(
     [v0]=brute_force_real_kernel
     [v0_shared]=brute_force_shared_kernel
@@ -69,111 +83,220 @@ declare -A kernels=(
     [v8]=v8_subwarp_early_cp_async_kernel
 )
 
+
+
 ncu_path="$(command -v ncu || true)"
+
 if [[ -z "${ncu_path}" ]]; then
-    printf 'Nsight Compute CLI (ncu) was not found in PATH.\n' >&2
+    echo "ERROR: ncu not found"
     exit 1
 fi
 
+
+
 if ((use_sudo_ncu)); then
-    printf 'Validating sudo credentials for Nsight Compute...\n'
+
     sudo -v
+
     ncu_command=(sudo "${ncu_path}")
+
 else
+
     ncu_command=("${ncu_path}")
+
 fi
 
-printf 'Building all sm_89 executables...\n'
+
+
+echo "Building all sm_89 executables..."
+
 make -C "${repo_dir}" all
 
+
+
 for version in "${versions[@]}"; do
+
+
+    echo
+    echo "=============================="
+    echo "Profiling ${version}"
+    echo "=============================="
+
+
     source_executable="${repo_dir}/build/sm_89/${version}"
-    version_dir="${staging_dir}/${version}"
-    artifact_name="${version}_real_4b"
-    archived_executable="${version_dir}/${artifact_name}"
-    run_result="${version_dir}/${artifact_name}_result.txt"
-    ncu_report_base="${version_dir}/${artifact_name}_ncu"
-    ncu_report="${ncu_report_base}.ncu-rep"
-    ncu_details="${version_dir}/${artifact_name}_ncu_details.txt"
-    ncu_collection_log="${staging_dir}/.${version}.ncu-collection.log"
+
 
     if [[ ! -x "${source_executable}" ]]; then
-        printf 'Missing executable: %s\n' "${source_executable}" >&2
+        echo "Missing executable:"
+        echo "${source_executable}"
         exit 1
     fi
+
+
+
+    version_dir="${staging_dir}/${version}"
 
     mkdir -p "${version_dir}"
+
+
+
+    artifact_name="${version}_real_4b"
+
+    archived_executable="${version_dir}/${artifact_name}"
+
+
+
+    run_result="${version_dir}/${artifact_name}_result.txt"
+
+
+
+    ncu_report_base="${version_dir}/${artifact_name}_ncu"
+
+    ncu_report="${ncu_report_base}.ncu-rep"
+
+
+
+    ncu_details="${version_dir}/${artifact_name}_ncu_details.txt"
+
+    ncu_source_sass="${version_dir}/${artifact_name}_source_sass.txt"
+
+    sass_file="${version_dir}/${artifact_name}.sass"
+
+
+
     cp "${source_executable}" "${archived_executable}"
 
-    printf '[%s] Running correctness and timing benchmark...\n' "${version}"
-    {
-        printf 'Collected at    : %s\n' "$(date --iso-8601=seconds)"
-        printf 'Source version  : %s\n' "${version}"
-        printf 'Executable      : %s\n\n' "${artifact_name}"
-        "${archived_executable}"
-    } >"${run_result}" 2>&1
 
-    if ! grep -Eq 'Wrong results[[:space:]]*:[[:space:]]*0' "${run_result}"; then
-        printf '[%s] Correctness validation failed.\n' "${version}" >&2
-        tail -n 30 "${run_result}" >&2
+
+    echo "[${version}] Running benchmark..."
+
+    {
+        echo "Collected:"
+        date --iso-8601=seconds
+
+        echo
+        echo "Version:"
+        echo "${version}"
+
+        echo
+        echo "Executable:"
+        echo "${artifact_name}"
+
+        echo
+
+        "${archived_executable}"
+
+    } > "${run_result}" 2>&1
+
+
+
+    if ! grep -Eq \
+        'Wrong results[[:space:]]*:[[:space:]]*0' \
+        "${run_result}";
+    then
+
+        echo "[${version}] Correctness failed"
+
+        tail -n 30 "${run_result}"
+
         exit 1
+
     fi
 
-    printf '[%s] Collecting NCU full details for %s...\n' \
-        "${version}" "${kernels[${version}]}"
-    if ! "${ncu_command[@]}" \
+
+
+    echo "[${version}] Collecting NCU..."
+
+
+
+    "${ncu_command[@]}" \
         --set full \
         --kernel-name-base function \
         --kernel-name "regex:${kernels[${version}]}" \
+        --launch-skip 10 \
         --launch-count 1 \
         --import-source yes \
         --export "${ncu_report_base}" \
         --force-overwrite \
-        "${archived_executable}" >"${ncu_collection_log}" 2>&1; then
-        printf '[%s] Nsight Compute collection failed.\n' "${version}" >&2
-        tail -n 40 "${ncu_collection_log}" >&2
-        exit 1
-    fi
+        "${archived_executable}"
 
-    if grep -q 'ERR_NVGPUCTRPERM\|No kernels were profiled' \
-        "${ncu_collection_log}"; then
-        printf '[%s] Nsight Compute did not collect hardware counters.\n' \
-            "${version}" >&2
-        tail -n 40 "${ncu_collection_log}" >&2
-        exit 1
-    fi
+
 
     if [[ ! -s "${ncu_report}" ]]; then
-        printf '[%s] Nsight Compute report was not created: %s\n' \
-            "${version}" "${ncu_report}" >&2
+
+        echo "NCU report missing:"
+        echo "${ncu_report}"
+
         exit 1
+
     fi
+
+
 
     if ((use_sudo_ncu)); then
-        sudo chown "$(id -u):$(id -g)" "${ncu_report}"
+
+        sudo chown \
+            "$(id -u):$(id -g)" \
+            "${ncu_report}"
+
     fi
 
-    if ! "${ncu_path}" \
+
+
+    echo "[${version}] Export details..."
+
+    "${ncu_path}" \
         --import "${ncu_report}" \
         --page details \
-        --print-details all \
-        --print-rule-details \
-        --print-summary per-kernel >"${ncu_details}" 2>&1; then
-        printf '[%s] Failed to export NCU details text.\n' "${version}" >&2
-        tail -n 40 "${ncu_details}" >&2
-        exit 1
-    fi
+        > "${ncu_details}"
 
-    rm -f "${ncu_collection_log}"
+
+
+    echo "[${version}] Export CUDA + SASS mapping..."
+
+    "${ncu_path}" \
+        --import "${ncu_report}" \
+        --page source \
+        --print-source cuda,sass \
+        > "${ncu_source_sass}"
+
+
+
+    echo "[${version}] Dump SASS..."
+
+    cuobjdump \
+        --dump-sass "${archived_executable}" \
+        > "${sass_file}"
+
+
+
+    echo "[${version}] Done"
+
+
 done
+
+
 
 if [[ -e "${profiles_dir}" ]]; then
     mv "${profiles_dir}" "${backup_dir}"
 fi
 
+
+
 mv "${staging_dir}" "${profiles_dir}"
+
 staging_dir=""
+
+
+
 rm -rf "${backup_dir}"
 
-printf '\nProfile archive created at %s\n' "${profiles_dir}"
-printf 'Each version contains: executable, result.txt, ncu-rep, ncu_details.txt\n'
+trap - EXIT
+
+
+
+echo
+echo "================================"
+echo "Profiles created:"
+echo "${profiles_dir}"
+echo "================================"

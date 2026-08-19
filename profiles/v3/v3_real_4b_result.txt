@@ -1,6 +1,11 @@
-Collected at    : 2026-08-19T17:11:42+08:00
-Source version  : v3
-Executable      : v3_real_4b
+Collected:
+2026-08-19T18:04:11+08:00
+
+Version:
+v3
+
+Executable:
+v3_real_4b
 
 GPU             : NVIDIA GeForce RTX 4090
 Grid            : <<<262144, 512>>>
@@ -11,11 +16,11 @@ A memory        : 512.00 MiB
 B memory        : 2048.00 MiB
 
 V3 1A-NB Sort Once + Fixed-32 Search
-Average time    : 3.038290 ms
-Groups/s        : 1380.482 M
-A-B pairs/s     : 5521.928 M
+Average time    : 3.038003 ms
+Groups/s        : 1380.612 M
+A-B pairs/s     : 5522.448 M
 Logical traffic : 2.819 GB
-Effective BW    : 927.684 GB/s
+Effective BW    : 927.771 GB/s
 Search probes   : 39 / group
 Search type     : Fixed-32
 Wrong results   : 0

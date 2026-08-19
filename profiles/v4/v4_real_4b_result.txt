@@ -1,6 +1,11 @@
-Collected at    : 2026-08-19T17:11:46+08:00
-Source version  : v4
-Executable      : v4_real_4b
+Collected:
+2026-08-19T18:04:16+08:00
+
+Version:
+v4
+
+Executable:
+v4_real_4b
 
 GPU             : NVIDIA GeForce RTX 4090
 Grid            : <<<262144, 512>>>
@@ -11,11 +16,11 @@ A memory        : 512.00 MiB
 B memory        : 2048.00 MiB
 
 V4 1A-NB Fixed-32 + 2-Way B ILP
-Average time    : 3.038720 ms
-Groups/s        : 1380.286 M
-A-B pairs/s     : 5521.146 M
+Average time    : 3.038454 ms
+Groups/s        : 1380.407 M
+A-B pairs/s     : 5521.630 M
 Logical traffic : 2.819 GB
-Effective BW    : 927.552 GB/s
+Effective BW    : 927.634 GB/s
 Search probes   : 39 / group
 Search type     : Fixed-32
 B ILP width     : 2
