@@ -1,0 +1,25 @@
+Collected at    : 2026-08-19T17:11:54+08:00
+Source version  : v6
+Executable      : v6_real_4b
+
+GPU             : NVIDIA GeForce RTX 4090
+Grid            : <<<262144, 512>>>
+Warps/block     : 16
+Groups          : 4194304
+NUM_B_LISTS     : 4
+B layout        : [group][B][element]
+Subwarp mapping : 4 B x 8 threads x 4 values
+A memory        : 512.00 MiB
+B memory        : 2048.00 MiB
+
+V6 4x8 Subwarp int4 Candidate Filter
+Average time    : 3.034069 ms
+Groups/s        : 1382.403 M
+A-B pairs/s     : 5529.610 M
+Logical traffic : 2.819 GB
+Effective BW    : 928.974 GB/s
+Search stages   : 39 / group
+Search type     : Generic Binary Search
+Output store    : Block-Coalesced
+B transfer      : direct int4 load
+Wrong results   : 0

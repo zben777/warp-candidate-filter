@@ -1,0 +1,21 @@
+Collected at    : 2026-08-19T17:11:38+08:00
+Source version  : v2
+Executable      : v2_real_4b
+
+GPU             : NVIDIA GeForce RTX 4090
+Grid            : <<<262144, 512>>>
+Warps/block     : 16
+Groups          : 4194304
+NUM_B_LISTS     : 4
+A memory        : 512.00 MiB
+B memory        : 2048.00 MiB
+
+V2 1A-NB Sort Once + 2-Way B ILP
+Average time    : 3.030405 ms
+Groups/s        : 1384.074 M
+A-B pairs/s     : 5536.295 M
+Logical traffic : 2.819 GB
+Effective BW    : 930.098 GB/s
+Search stages   : 39 / group
+B ILP width     : 2
+Wrong results   : 0

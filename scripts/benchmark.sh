@@ -3,7 +3,13 @@
 set -euo pipefail
 
 runs="${1:-5}"
-build_dir="${BUILD_DIR:-build/sm_89}"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_dir="$(cd "${script_dir}/.." && pwd)"
+build_dir="${BUILD_DIR:-${repo_dir}/build/sm_89}"
+
+if [[ "${build_dir}" != /* ]]; then
+    build_dir="${repo_dir}/${build_dir}"
+fi
 
 versions=(
     v0

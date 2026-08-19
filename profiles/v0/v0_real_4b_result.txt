@@ -1,0 +1,20 @@
+Collected at    : 2026-08-19T17:11:21+08:00
+Source version  : v0
+Executable      : v0_real_4b
+
+GPU             : NVIDIA GeForce RTX 4090
+Grid            : <<<262144, 512>>>
+Warps/block     : 16
+Groups          : 4194304
+NUM_B_LISTS     : 4
+A memory        : 512.00 MiB
+B memory        : 2048.00 MiB
+
+V0-real 1A-NB Brute Force
+Average time    : 4.520954 ms
+Groups/s        : 927.748 M
+A-B pairs/s     : 3710.990 M
+Logical traffic : 2.819 GB
+Effective BW    : 623.446 GB/s
+Search rounds   : 128 / group
+Wrong results   : 0

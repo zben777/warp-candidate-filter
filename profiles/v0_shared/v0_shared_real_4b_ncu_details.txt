@@ -1,0 +1,875 @@
+[389920] v0_shared_real_4b@127.0.0.1
+  brute_force_shared_kernel(const int *, const int *, int *, int *) (262144, 1, 1)x(512, 1, 1), Device 0, CC 8.9, Invocations 1
+    Section: Compute Workload Analysis
+    ---------------------- ----------- ------- ------- -------
+    Metric Name            Metric Unit Minimum Maximum Average
+    ---------------------- ----------- ------- ------- -------
+    Executed Ipc Active     inst/cycle    1.14    1.14    1.14
+    Executed Ipc Elapsed    inst/cycle    1.14    1.14    1.14
+    Issue Slots Busy                 %   28.58   28.58   28.58
+    Issued Ipc Active       inst/cycle    1.14    1.14    1.14
+    Max. Issued Slots Busy           %   28.59   28.59   28.59
+    SM Busy                          %   33.44   33.44   33.44
+    ---------------------- ----------- ------- ------- -------
+
+    Pipe Utilization
+    Table Name : Pipe Utilization (% of active cycles)
+    Table Description : Pipeline utilization based on the number of cycles the pipeline was active. This takes the rates of different instructions executing on the pipeline into account. For an instruction requiring 4 cycles to complete execution, the counter is increased by 1 for 4 cycles.
+    ------------ ----------- ------- ------- -------
+    Metric Name  Metric Unit Minimum Maximum Average
+    ------------ ----------- ------- ------- -------
+    ALU                    %   23.91   23.91   23.91
+    FMA                    %    2.84    2.84    2.84
+    FP64                   %    0.00    0.00    0.00
+    Tensor (All)           %    0.00    0.00    0.00
+    Tensor (FP)            %    0.00    0.00    0.00
+    Tensor (INT)           %    0.00    0.00    0.00
+    ------------ ----------- ------- ------- -------
+
+    Table Name : Pipe Utilization (% of peak instructions executed)
+    Table Description : Pipeline utilization based on the number of executed instructions. This does not account for any variation in instruction latencies for this pipeline. For an instruction requiring 4 cycles to complete execution, the counter is increased by 1 only.
+    ------------ ----------- ------- ------- -------
+    Metric Name  Metric Unit Minimum Maximum Average
+    ------------ ----------- ------- ------- -------
+    ADU                    %    0.58    0.58    0.58
+    ALU                    %   23.91   23.91   23.91
+    CBU                    %    0.07    0.07    0.07
+    FMA                    %    2.70    2.70    2.70
+    FP64 (DMMA)            %    0.00    0.00    0.00
+    FP64 (FP64)            %    0.00    0.00    0.00
+    LSU                    %   99.73   99.73   99.73
+    Tensor (FP)            %    0.00    0.00    0.00
+    Tensor (INT)           %    0.00    0.00    0.00
+    TEX                    %    0.00    0.00    0.00
+    Uniform                %    0.15    0.15    0.15
+    XU                     %    4.67    4.67    4.67
+    ------------ ----------- ------- ------- -------
+
+    Section: GPU Speed Of Light Roofline Chart
+    ----------------------------------------------------------- ----------- --------- --------- ---------
+    Metric Name                                                 Metric Unit   Minimum   Maximum   Average
+    ----------------------------------------------------------- ----------- --------- --------- ---------
+    Theoretical Predicated-On DFMA Thread Instructions Executed  inst/cycle    256.00    256.00    256.00
+    Theoretical Predicated-On FFMA Thread Instructions Executed  inst/cycle 16,384.00 16,384.00 16,384.00
+    Predicated-On DFMA Thread Instructions Executed Per Cycle    inst/cycle      0.00      0.00      0.00
+    Predicated-On FFMA Thread Instructions Executed Per Cycle    inst/cycle      0.00      0.00      0.00
+    ----------------------------------------------------------- ----------- --------- --------- ---------
+
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ------------- ------------- ------------- -------------
+    Metric Name               Metric Unit       Minimum       Maximum       Average
+    ----------------------- ------------- ------------- ------------- -------------
+    DRAM Frequency          cycle/nsecond         10.24         10.24         10.24
+    SM Frequency            cycle/nsecond          2.23          2.23          2.23
+    Elapsed Cycles                  cycle 11,245,859.00 11,245,859.00 11,245,859.00
+    Memory Throughput                   %         99.69         99.69         99.69
+    DRAM Throughput                     %         56.90         56.90         56.90
+    Duration                      msecond          5.03          5.03          5.03
+    L1/TEX Cache Throughput             %         99.73         99.73         99.73
+    Waves Per SM                                 682.67        682.67        682.67
+    L2 Cache Throughput                 %         23.89         23.89         23.89
+    SM Active Cycles                cycle 11,236,506.49 11,236,506.49 11,236,506.49
+    Compute (SM) Throughput             %         99.69         99.69         99.69
+    ----------------------- ------------- ------------- ------------- -------------
+
+    GPU Throughput Chart
+    Table Name : GPU Throughput
+    ----------------------- ----------- ------- ------- -------
+    Metric Name             Metric Unit Minimum Maximum Average
+    ----------------------- ----------- ------- ------- -------
+    Memory Throughput                 %   99.69   99.69   99.69
+    Compute (SM) Throughput           %   99.69   99.69   99.69
+    ----------------------- ----------- ------- ------- -------
+
+    GPU Throughput Breakdown
+    Table Name : Compute Throughput Breakdown
+    -------------------------------------- ----------- ------- ------- -------
+    Metric Name                            Metric Unit Minimum Maximum Average
+    -------------------------------------- ----------- ------- ------- -------
+    IDC: Request Cycles Active                       %    0.00    0.00    0.00
+    SM: Inst Executed                                %   28.57   28.57   28.57
+    SM: Inst Executed Pipe Adu                       %    0.58    0.58    0.58
+    SM: Inst Executed Pipe Cbu Pred On Any           %    0.29    0.29    0.29
+    SM: Inst Executed Pipe Ipa                       %    0.00    0.00    0.00
+    SM: Inst Executed Pipe Lsu                       %   99.69   99.69   99.69
+    SM: Inst Executed Pipe Tex                       %    0.00    0.00    0.00
+    SM: Inst Executed Pipe Uniform                   %    0.15    0.15    0.15
+    SM: Inst Executed Pipe Xu                        %    4.66    4.66    4.66
+    SM: Issue Active                                 %   28.57   28.57   28.57
+    SM: Mio2rf Writeback Active                      %   23.17   23.17   23.17
+    SM: Mio Inst Issued                              %   33.42   33.42   33.42
+    SM: Mio Pq Read Cycles Active                    %    9.62    9.62    9.62
+    SM: Mio Pq Write Cycles Active                   %    9.62    9.62    9.62
+    SM: Pipe Alu Cycles Active                       %   23.90   23.90   23.90
+    SM: Pipe Fma Cycles Active                       %    2.84    2.84    2.84
+    SM: Pipe Fmaheavy Cycles Active                  %    5.68    5.68    5.68
+    SM: Pipe Fp64 Cycles Active                      %    0.00    0.00    0.00
+    SM: Pipe Tensor Cycles Active                    %    0.00    0.00    0.00
+    -------------------------------------- ----------- ------- ------- -------
+
+    Table Name : Memory Throughput Breakdown
+    ---------------------------------- ----------- ------- ------- -------
+    Metric Name                        Metric Unit Minimum Maximum Average
+    ---------------------------------- ----------- ------- ------- -------
+    DRAM: Cycles Active                          %   56.90   56.90   56.90
+    DRAM: Dram Sectors                           %   36.51   36.51   36.51
+    L1: Data Bank Reads                          %    1.64    1.64    1.64
+    L1: Data Bank Writes                         %    1.20    1.20    1.20
+    L1: Data Pipe Lsu Wavefronts                 %   49.92   49.92   49.92
+    L1: Data Pipe Tex Wavefronts                 %    0.00    0.00    0.00
+    L1: F Wavefronts                             %    0.00    0.00    0.00
+    L1: Lsu Writeback Active                     %   46.06   46.06   46.06
+    L1: Lsuin Requests                           %   99.69   99.69   99.69
+    L1: M L1tex2xbar Req Cycles Active           %    5.87    5.87    5.87
+    L1: M Xbar2l1tex Read Sectors                %    5.83    5.83    5.83
+    L1: Tex Writeback Active                     %    0.00    0.00    0.00
+    L1: Texin Sm2tex Req Cycles Active           %    0.00    0.00    0.00
+    L2: D Atomic Input Cycles Active             %    0.00    0.00    0.00
+    L2: D Sectors                                %   14.21   14.21   14.21
+    L2: D Sectors Fill Device                    %   23.21   23.21   23.21
+    L2: D Sectors Fill Sysmem                    %    0.00    0.00    0.00
+    L2: Lts2xbar Cycles Active                   %   11.61   11.61   11.61
+    L2: T Sectors                                %   16.25   16.25   16.25
+    L2: T Tag Requests                           %   14.76   14.76   14.76
+    L2: Xbar2lts Cycles Active                   %   23.89   23.89   23.89
+    ---------------------------------- ----------- ------- ------- -------
+
+    Section: Instruction Statistics
+    ---------------------------------------- ----------- ---------------- ---------------- ----------------
+    Metric Name                              Metric Unit          Minimum          Maximum          Average
+    ---------------------------------------- ----------- ---------------- ---------------- ----------------
+    Instructions Executed                           inst 1,644,167,168.00 1,644,167,168.00 1,644,167,168.00
+    Avg. Executed Instructions Per Scheduler        inst     3,211,264.00     3,211,264.00     3,211,264.00
+    Executed Instructions                           inst 1,644,167,168.00 1,644,167,168.00 1,644,167,168.00
+    Avg. Issued Instructions Per Scheduler          inst     3,211,321.78     3,211,321.78     3,211,321.78
+    Issued Instructions                             inst 1,644,196,750.00 1,644,196,750.00 1,644,196,750.00
+    ---------------------------------------- ----------- ---------------- ---------------- ----------------
+
+    
+    Table Name : Executed Instruction Mix
+    ----------------------------------------------------- ----------- ---------------- ---------------- ----------------
+    Metric Name                                           Metric Unit          Minimum          Maximum          Average
+    ----------------------------------------------------- ----------- ---------------- ---------------- ----------------
+    Executed Warp-Level Instructions By Basic SASS Opcode             1,644,167,168.00 1,644,167,168.00 1,644,167,168.00
+    ----------------------------------------------------- ----------- ---------------- ---------------- ----------------
+
+    Section: Launch Statistics
+    -------------------------------- --------------- -------------- -------------- --------------
+    Metric Name                          Metric Unit        Minimum        Maximum        Average
+    -------------------------------- --------------- -------------- -------------- --------------
+    Block Size                                               512.00         512.00         512.00
+    Grid Size                                            262,144.00     262,144.00     262,144.00
+    Registers Per Thread             register/thread          34.00          34.00          34.00
+    Shared Memory Configuration Size           Kbyte          32.77          32.77          32.77
+    Driver Shared Memory Per Block       Kbyte/block           1.02           1.02           1.02
+    Dynamic Shared Memory Per Block       byte/block           0.00           0.00           0.00
+    Static Shared Memory Per Block       Kbyte/block           4.10           4.10           4.10
+    Threads                                   thread 134,217,728.00 134,217,728.00 134,217,728.00
+    Waves Per SM                                             682.67         682.67         682.67
+    Theoretical Occupancy                          %         100.00         100.00         100.00
+    Achieved Occupancy                             %          91.49          91.49          91.49
+    -------------------------------- --------------- -------------- -------------- --------------
+
+    Section: Memory Workload Analysis
+    --------------------------- ------------ ------- ------- -------
+    Metric Name                  Metric Unit Minimum Maximum Average
+    --------------------------- ------------ ------- ------- -------
+    Memory Throughput           Gbyte/second  559.36  559.36  559.36
+    Mem Busy                               %   49.92   49.92   49.92
+    Max Bandwidth                          %   99.69   99.69   99.69
+    L1/TEX Hit Rate                        %   25.71   25.71   25.71
+    L2 Compression Success Rate            %    0.00    0.00    0.00
+    L2 Compression Ratio                        0.00    0.00    0.00
+    L2 Hit Rate                            %   28.59   28.59   28.59
+    Mem Pipes Busy                         %   99.69   99.69   99.69
+    --------------------------- ------------ ------- ------- -------
+
+    Section: Memory Workload Analysis Chart
+    ------------------------------------------------------- ------------ -------------- -------------- --------------
+    Metric Name                                              Metric Unit        Minimum        Maximum        Average
+    ------------------------------------------------------- ------------ -------------- -------------- --------------
+    DRAM bandwidth                                          Gbyte/second         559.36         559.36         559.36
+    L2 Compression Success Rate                                        %           0.00           0.00           0.00
+    L2 Cache Sectors                                              sector 117,425,956.00 117,425,956.00 117,425,956.00
+    L2 Cache Sector Throughput For TEX                                 %          16.25          16.25          16.25
+    Missed L2 Cache Sectors For TEX Accessing Peer Memory         sector           0.00           0.00           0.00
+    Missed L2 Cache Sectors For TEX Accessing System Memory       sector           0.00           0.00           0.00
+    Missed L2 Cache Sectors For TEX                               sector  83,886,080.00  83,886,080.00  83,886,080.00
+    ------------------------------------------------------- ------------ -------------- -------------- --------------
+
+    Memory Chart
+    Table Name : Memory Chart
+    ------------------------------------------------------------------------------------------------------------ ------------- ---------------- ---------------- ----------------
+    Metric Name                                                                                                    Metric Unit          Minimum          Maximum          Average
+    ------------------------------------------------------------------------------------------------------------ ------------- ---------------- ---------------- ----------------
+    dram__bytes_read.sum                                                                                                 Gbyte             2.68             2.68             2.68
+    dram__bytes_read.sum.pct_of_peak_sustained_elapsed                                                                       %            54.26            54.26            54.26
+    dram__bytes_read.sum.per_second                                                                               Gbyte/second           533.39           533.39           533.39
+    dram__bytes_write.sum                                                                                                Mbyte           130.68           130.68           130.68
+    dram__bytes_write.sum.pct_of_peak_sustained_elapsed                                                                      %             2.64             2.64             2.64
+    dram__bytes_write.sum.per_second                                                                              Gbyte/second            25.97            25.97            25.97
+    l1tex__data_pipe_lsu_wavefronts_mem_shared.sum.pct_of_peak_sustained_elapsed                                             %            46.09            46.09            46.09
+    l1tex__m_l1tex2xbar_write_bytes.sum                                                                                  Gbyte             1.07             1.07             1.07
+    l1tex__m_l1tex2xbar_write_bytes.sum.pct_of_peak_sustained_elapsed                                                        %             2.33             2.33             2.33
+    l1tex__m_l1tex2xbar_write_bytes.sum.per_second                                                                Gbyte/second           213.22           213.22           213.22
+    l1tex__m_xbar2l1tex_read_bytes.sum                                                                                   Gbyte             2.68             2.68             2.68
+    l1tex__m_xbar2l1tex_read_bytes.sum.pct_of_peak_sustained_elapsed                                                         %             5.83             5.83             5.83
+    l1tex__m_xbar2l1tex_read_bytes.sum.per_second                                                                 Gbyte/second           533.39           533.39           533.39
+    l1tex__t_requests_pipe_lsu_mem_global_op_atom.sum                                                                  request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_atom.sum.pct_of_peak_sustained_elapsed                                          %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum                                                                    request    20,971,520.00    20,971,520.00    20,971,520.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum.pct_of_peak_sustained_elapsed                                            %             1.46             1.46             1.46
+    l1tex__t_requests_pipe_lsu_mem_global_op_red.sum                                                                   request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_red.sum.pct_of_peak_sustained_elapsed                                           %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_st.sum                                                                    request    33,554,432.00    33,554,432.00    33,554,432.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_st.sum.pct_of_peak_sustained_elapsed                                            %             2.33             2.33             2.33
+    l1tex__t_requests_pipe_lsu_mem_local_op_ld.sum                                                                     request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_lsu_mem_local_op_ld.sum.pct_of_peak_sustained_elapsed                                             %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_lsu_mem_local_op_st.sum                                                                     request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_lsu_mem_local_op_st.sum.pct_of_peak_sustained_elapsed                                             %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_atom.sum                                                                 request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_atom.sum.pct_of_peak_sustained_elapsed                                         %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_ld.sum                                                                   request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_ld.sum.pct_of_peak_sustained_elapsed                                           %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_red.sum                                                                  request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_red.sum.pct_of_peak_sustained_elapsed                                          %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_st.sum                                                                   request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_st.sum.pct_of_peak_sustained_elapsed                                           %             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_texture.sum                                                                         request             0.00             0.00             0.00
+    l1tex__t_requests_pipe_tex_mem_texture.sum.pct_of_peak_sustained_elapsed                                                 %             0.00             0.00             0.00
+    l1tex__t_sector_hit_rate.pct                                                                                             %            25.71            25.71            25.71
+    lts__average_gcomp_output_sector_compression_achieved_rate.ratio                                                                       0.00             0.00             0.00
+    lts__gcomp_input_sectors.sum                                                                                        sector             0.00             0.00             0.00
+    lts__gcomp_input_sectors.sum.pct_of_peak_sustained_elapsed                                                               %             0.00             0.00             0.00
+    lts__gcomp_input_sectors.sum.per_second                                                                      sector/second             0.00             0.00             0.00
+    lts__gcomp_output_sectors.sum                                                                                       sector             0.00             0.00             0.00
+    lts__gcomp_output_sectors.sum.pct_of_peak_sustained_elapsed                                                              %             0.00             0.00             0.00
+    lts__gcomp_output_sectors.sum.per_second                                                                     sector/second             0.00             0.00             0.00
+    lts__t_sector_hit_rate.pct                                                                                               %            28.59            28.59            28.59
+    lts__t_sectors_srcunit_tex_aperture_peer_op_read_lookup_miss.sum                                                    sector             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_read_lookup_miss.sum.pct_of_peak_sustained_elapsed                           %             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_read_lookup_miss.sum.per_second                                  sector/second             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_red_lookup_miss.sum                                                     sector             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_red_lookup_miss.sum.pct_of_peak_sustained_elapsed                            %             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_red_lookup_miss.sum.per_second                                   sector/second             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_write_lookup_miss.sum                                                   sector             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_write_lookup_miss.sum.pct_of_peak_sustained_elapsed                          %             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_write_lookup_miss.sum.per_second                                 sector/second             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_read_lookup_miss.sum                                                  sector             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_read_lookup_miss.sum.pct_of_peak_sustained_elapsed                         %             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_read_lookup_miss.sum.per_second                                sector/second             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_red_lookup_miss.sum                                                   sector             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_red_lookup_miss.sum.pct_of_peak_sustained_elapsed                          %             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_red_lookup_miss.sum.per_second                                 sector/second             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_write_lookup_miss.sum                                                 sector             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_write_lookup_miss.sum.pct_of_peak_sustained_elapsed                        %             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_write_lookup_miss.sum.per_second                               sector/second             0.00             0.00             0.00
+    lts__t_sectors_srcunit_tex_op_read.avg.pct_of_peak_sustained_elapsed                                                     %            11.61            11.61            11.61
+    lts__t_sectors_srcunit_tex_op_read.sum                                                                              sector    83,886,080.00    83,886,080.00    83,886,080.00
+    lts__t_sectors_srcunit_tex_op_write.avg.pct_of_peak_sustained_elapsed                                                    %             9.28             9.28             9.28
+    lts__t_sectors_srcunit_tex_op_write.sum                                                                             sector    33,533,371.00    33,533,371.00    33,533,371.00
+    sm__sass_l1tex_data_bytes_write_pipe_lsu_mem_shared_op_ldgsts_cache_access.sum                                        byte             0.00             0.00             0.00
+    sm__sass_l1tex_data_bytes_write_pipe_lsu_mem_shared_op_ldgsts_cache_access.sum.pct_of_peak_sustained_elapsed             %             0.00             0.00             0.00
+    sm__sass_l1tex_data_bytes_write_pipe_lsu_mem_shared_op_ldgsts_cache_access.sum.per_second                      byte/second             0.00             0.00             0.00
+    sm__sass_l1tex_m_xbar2l1tex_read_bytes_mem_global_op_ldgsts_cache_bypass.sum                                          byte             0.00             0.00             0.00
+    sm__sass_l1tex_m_xbar2l1tex_read_bytes_mem_global_op_ldgsts_cache_bypass.sum.pct_of_peak_sustained_elapsed               %             0.00             0.00             0.00
+    sm__sass_l1tex_m_xbar2l1tex_read_bytes_mem_global_op_ldgsts_cache_bypass.sum.per_second                        byte/second             0.00             0.00             0.00
+    sm__sass_l1tex_t_requests_pipe_lsu_mem_global_op_ldgsts.sum                                                        request             0.00             0.00             0.00
+    sm__sass_l1tex_t_requests_pipe_lsu_mem_global_op_ldgsts.sum.pct_of_peak_sustained_elapsed                                %             0.00             0.00             0.00
+    smsp__cycles_elapsed.sum                                                                                             cycle 5,755,626,408.00 5,755,626,408.00 5,755,626,408.00
+    smsp__inst_executed_op_generic_atom_dot_alu.sum                                                                       inst             0.00             0.00             0.00
+    smsp__inst_executed_op_generic_atom_dot_alu.sum.pct_of_peak_sustained_elapsed                                            %             0.00             0.00             0.00
+    smsp__inst_executed_op_generic_atom_dot_cas.sum                                                                       inst             0.00             0.00             0.00
+    smsp__inst_executed_op_generic_atom_dot_cas.sum.pct_of_peak_sustained_elapsed                                            %             0.00             0.00             0.00
+    smsp__inst_executed_op_global_red.sum                                                                                 inst             0.00             0.00             0.00
+    smsp__inst_executed_op_global_red.sum.pct_of_peak_sustained_elapsed                                                      %             0.00             0.00             0.00
+    smsp__inst_executed_op_ldgsts.sum                                                                                     inst             0.00             0.00             0.00
+    smsp__inst_executed_op_ldgsts.sum.pct_of_peak_sustained_elapsed                                                          %             0.00             0.00             0.00
+    smsp__inst_executed_op_ldsm.sum                                                                                       inst             0.00             0.00             0.00
+    smsp__inst_executed_op_ldsm.sum.pct_of_peak_sustained_elapsed                                                            %             0.00             0.00             0.00
+    smsp__inst_executed_op_shared_atom.sum                                                                                inst             0.00             0.00             0.00
+    smsp__inst_executed_op_shared_atom.sum.pct_of_peak_sustained_elapsed                                                     %             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_atom_dot_alu.sum                                                                       inst             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_atom_dot_alu.sum.pct_of_peak_sustained_elapsed                                            %             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_atom_dot_cas.sum                                                                       inst             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_atom_dot_cas.sum.pct_of_peak_sustained_elapsed                                            %             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_ld.sum                                                                                 inst             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_ld.sum.pct_of_peak_sustained_elapsed                                                      %             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_red.sum                                                                                inst             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_red.sum.pct_of_peak_sustained_elapsed                                                     %             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_st.sum                                                                                 inst             0.00             0.00             0.00
+    smsp__inst_executed_op_surface_st.sum.pct_of_peak_sustained_elapsed                                                      %             0.00             0.00             0.00
+    smsp__inst_executed_op_texture.sum                                                                                    inst             0.00             0.00             0.00
+    smsp__inst_executed_op_texture.sum.pct_of_peak_sustained_elapsed                                                         %             0.00             0.00             0.00
+    smsp__sass_inst_executed_op_global_ld.sum                                                                             inst    20,971,520.00    20,971,520.00    20,971,520.00
+    smsp__sass_inst_executed_op_global_st.sum                                                                             inst    33,554,432.00    33,554,432.00    33,554,432.00
+    smsp__sass_inst_executed_op_local_ld.sum                                                                              inst             0.00             0.00             0.00
+    smsp__sass_inst_executed_op_local_st.sum                                                                              inst             0.00             0.00             0.00
+    smsp__sass_inst_executed_op_shared_ld.sum                                                                             inst   553,648,128.00   553,648,128.00   553,648,128.00
+    smsp__sass_inst_executed_op_shared_st.sum                                                                             inst    20,971,520.00    20,971,520.00    20,971,520.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_ldgsts.sum                                                                     0.00             0.00             0.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_ldgsts.sum.pct_of_peak_sustained_elapsed                         %             0.00             0.00             0.00
+    ------------------------------------------------------------------------------------------------------------ ------------- ---------------- ---------------- ----------------
+
+    Section: Memory Workload Analysis Tables
+    -------------------------------------- ----------- ---------------- ---------------- ----------------
+    Metric Name                            Metric Unit          Minimum          Maximum          Average
+    -------------------------------------- ----------- ---------------- ---------------- ----------------
+    Active L1TEX Cycles                          cycle 1,438,272,831.00 1,438,272,831.00 1,438,272,831.00
+    Cycles Elapsed                               cycle 1,438,906,602.00 1,438,906,602.00 1,438,906,602.00
+    L1TEX Cache Bandwidth                            %             0.51             0.51             0.51
+    L2 Cache Read Bandwidth                          %            11.61            11.61            11.61
+    L2 Cache Write Bandwidth                         %             9.28             9.28             9.28
+    Memory Instructions Executed (128 Bit)        inst             0.00             0.00             0.00
+    Memory Instructions Executed (16 Bit)         inst             0.00             0.00             0.00
+    Memory Instructions Executed (32 Bit)         inst   629,145,600.00   629,145,600.00   629,145,600.00
+    Memory Instructions Executed (64 Bit)         inst             0.00             0.00             0.00
+    Memory Instructions Executed (8 Bit)          inst             0.00             0.00             0.00
+    -------------------------------------- ----------- ---------------- ---------------- ----------------
+
+    Memory Tables
+    Table Name : Shared Memory
+    ------------------------------------------------------------------------------------------------ ----------- -------------- -------------- --------------
+    Metric Name                                                                                      Metric Unit        Minimum        Maximum        Average
+    ------------------------------------------------------------------------------------------------ ----------- -------------- -------------- --------------
+    l1tex__data_bank_conflicts_pipe_lsu_mem_shared.sum                                                               471,091.00     471,091.00     471,091.00
+    l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_atom.sum                                                             0.00           0.00           0.00
+    l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum                                                          67,856.00      67,856.00      67,856.00
+    l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum                                                         276,984.00     276,984.00     276,984.00
+    l1tex__data_pipe_lsu_wavefronts_mem_shared.sum                                                               663,155,824.00 663,155,824.00 663,155,824.00
+    l1tex__data_pipe_lsu_wavefronts_mem_shared.sum.pct_of_peak_sustained_elapsed                               %          46.09          46.09          46.09
+    l1tex__data_pipe_lsu_wavefronts_mem_shared_op_atom.sum                                                                 0.00           0.00           0.00
+    l1tex__data_pipe_lsu_wavefronts_mem_shared_op_atom.sum.pct_of_peak_sustained_elapsed                       %           0.00           0.00           0.00
+    l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum                                                         553,802,694.00 553,802,694.00 553,802,694.00
+    l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum.pct_of_peak_sustained_elapsed                         %          38.49          38.49          38.49
+    l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum                                                          21,248,462.00  21,248,462.00  21,248,462.00
+    l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum.pct_of_peak_sustained_elapsed                         %           1.48           1.48           1.48
+    smsp__inst_executed_op_ldgsts.sum                                                                       inst           0.00           0.00           0.00
+    smsp__inst_executed_op_ldsm.sum                                                                         inst           0.00           0.00           0.00
+    smsp__inst_executed_op_shared_atom.sum                                                                  inst           0.00           0.00           0.00
+    smsp__sass_inst_executed_op_shared_ld.sum                                                               inst 553,648,128.00 553,648,128.00 553,648,128.00
+    smsp__sass_inst_executed_op_shared_st.sum                                                               inst  20,971,520.00  20,971,520.00  20,971,520.00
+    smsp__sass_l1tex_data_bank_conflicts_pipe_lsu_mem_shared_op_ldgsts.sum                                                 0.00           0.00           0.00
+    smsp__sass_l1tex_data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum                                                     0.00           0.00           0.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_ldgsts.sum                                                     0.00           0.00           0.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_ldgsts.sum.pct_of_peak_sustained_elapsed           %           0.00           0.00           0.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_st.sum                                                20,971,520.00  20,971,520.00  20,971,520.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_st.sum.pct_of_peak_sustained_elapsed               %           0.36           0.36           0.36
+    ------------------------------------------------------------------------------------------------ ----------- -------------- -------------- --------------
+
+    Table Name : L1/TEX Cache
+    -------------------------------------------------------------------------------------------------------------- ----------- ------------- ------------- -------------
+    Metric Name                                                                                                    Metric Unit       Minimum       Maximum       Average
+    -------------------------------------------------------------------------------------------------------------- ----------- ------------- ------------- -------------
+    l1tex__lsu_writeback_active_mem_lg.sum                                                                               cycle 25,041,700.00 25,041,700.00 25,041,700.00
+    l1tex__lsu_writeback_active_mem_lg.sum.pct_of_peak_sustained_elapsed                                                     %          1.74          1.74          1.74
+    l1tex__m_l1tex2xbar_write_sectors_mem_global_op_atom.sum                                                            sector          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_global_op_atom.sum.pct_of_peak_sustained_elapsed                                   %          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_global_op_red.sum                                                             sector          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_global_op_red.sum.pct_of_peak_sustained_elapsed                                    %          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_lg_op_st.sum                                                                  sector 33,533,371.00 33,533,371.00 33,533,371.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_lg_op_st.sum.pct_of_peak_sustained_elapsed                                         %          2.33          2.33          2.33
+    l1tex__m_l1tex2xbar_write_sectors_mem_surface_op_atom.sum                                                           sector          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_surface_op_atom.sum.pct_of_peak_sustained_elapsed                                  %          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_surface_op_red.sum                                                            sector          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_surface_op_red.sum.pct_of_peak_sustained_elapsed                                   %          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_surface_op_st.sum                                                             sector          0.00          0.00          0.00
+    l1tex__m_l1tex2xbar_write_sectors_mem_surface_op_st.sum.pct_of_peak_sustained_elapsed                                    %          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_global_op_atom.sum                                                             sector          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_global_op_atom.sum.pct_of_peak_sustained_elapsed                                    %          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_lg_op_ld.sum                                                                   sector 83,886,080.00 83,886,080.00 83,886,080.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_lg_op_ld.sum.pct_of_peak_sustained_elapsed                                          %          5.83          5.83          5.83
+    l1tex__m_xbar2l1tex_read_sectors_mem_surface_op_atom.sum                                                            sector          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_surface_op_atom.sum.pct_of_peak_sustained_elapsed                                   %          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_surface_op_ld.sum                                                              sector          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_surface_op_ld.sum.pct_of_peak_sustained_elapsed                                     %          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_texture.sum                                                                    sector          0.00          0.00          0.00
+    l1tex__m_xbar2l1tex_read_sectors_mem_texture.sum.pct_of_peak_sustained_elapsed                                           %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_atom.sum                                                                          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_atom.sum.pct_of_peak_sustained_elapsed                                 %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_ld.sum                                                                   20,971,520.00 20,971,520.00 20,971,520.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_ld.sum.pct_of_peak_sustained_elapsed                                   %          1.46          1.46          1.46
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_red.sum                                                                           0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_red.sum.pct_of_peak_sustained_elapsed                                  %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_st.sum                                                                   33,554,432.00 33,554,432.00 33,554,432.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_global_op_st.sum.pct_of_peak_sustained_elapsed                                   %          2.33          2.33          2.33
+    l1tex__t_output_wavefronts_pipe_lsu_mem_local_op_ld.sum                                                                             0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_local_op_ld.sum.pct_of_peak_sustained_elapsed                                    %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_local_op_st.sum                                                                             0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_lsu_mem_local_op_st.sum.pct_of_peak_sustained_elapsed                                    %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_atom.sum                                                                         0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_atom.sum.pct_of_peak_sustained_elapsed                                %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_ld.sum                                                                           0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_ld.sum.pct_of_peak_sustained_elapsed                                  %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_red.sum                                                                          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_red.sum.pct_of_peak_sustained_elapsed                                 %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_st.sum                                                                           0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_surface_op_st.sum.pct_of_peak_sustained_elapsed                                  %          0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_texture.sum                                                                                 0.00          0.00          0.00
+    l1tex__t_output_wavefronts_pipe_tex_mem_texture.sum.pct_of_peak_sustained_elapsed                                        %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_atom.sum                                                                  request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_atom.sum.pct_of_peak_sustained_elapsed                                          %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum                                                                    request 20,971,520.00 20,971,520.00 20,971,520.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum.pct_of_peak_sustained_elapsed                                            %          1.46          1.46          1.46
+    l1tex__t_requests_pipe_lsu_mem_global_op_red.sum                                                                   request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_red.sum.pct_of_peak_sustained_elapsed                                           %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_st.sum                                                                    request 33,554,432.00 33,554,432.00 33,554,432.00
+    l1tex__t_requests_pipe_lsu_mem_global_op_st.sum.pct_of_peak_sustained_elapsed                                            %          2.33          2.33          2.33
+    l1tex__t_requests_pipe_lsu_mem_local_op_ld.sum                                                                     request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_local_op_ld.sum.pct_of_peak_sustained_elapsed                                             %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_local_op_st.sum                                                                     request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_lsu_mem_local_op_st.sum.pct_of_peak_sustained_elapsed                                             %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_atom.sum                                                                 request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_atom.sum.pct_of_peak_sustained_elapsed                                         %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_ld.sum                                                                   request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_ld.sum.pct_of_peak_sustained_elapsed                                           %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_red.sum                                                                  request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_red.sum.pct_of_peak_sustained_elapsed                                          %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_st.sum                                                                   request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_surface_op_st.sum.pct_of_peak_sustained_elapsed                                           %          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_texture.sum                                                                         request          0.00          0.00          0.00
+    l1tex__t_requests_pipe_tex_mem_texture.sum.pct_of_peak_sustained_elapsed                                                 %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_lsu_mem_global_op_atom_hit_rate.pct                                                                 %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct                                                                   %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_lsu_mem_global_op_red_hit_rate.pct                                                                  %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_lsu_mem_global_op_st_hit_rate.pct                                                                   %         89.95         89.95         89.95
+    l1tex__t_sector_pipe_lsu_mem_local_op_ld_hit_rate.pct                                                                    %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_lsu_mem_local_op_st_hit_rate.pct                                                                    %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_tex_mem_surface_op_atom_hit_rate.pct                                                                %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_tex_mem_surface_op_ld_hit_rate.pct                                                                  %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_tex_mem_surface_op_red_hit_rate.pct                                                                 %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_tex_mem_surface_op_st_hit_rate.pct                                                                  %          0.00          0.00          0.00
+    l1tex__t_sector_pipe_tex_mem_texture_op_tex_hit_rate.pct                                                                 %          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_atom.sum                                                                    sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_atom_lookup_hit.sum                                                         sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_atom_lookup_miss.sum                                                        sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum                                                                      sector 83,886,080.00 83,886,080.00 83,886,080.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_ld_lookup_hit.sum                                                           sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_ld_lookup_miss.sum                                                          sector 83,886,080.00 83,886,080.00 83,886,080.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_red.sum                                                                     sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_red_lookup_hit.sum                                                          sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_red_lookup_miss.sum                                                         sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum                                                                      sector 33,554,432.00 33,554,432.00 33,554,432.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_st_lookup_hit.sum                                                           sector 30,182,754.00 30,182,754.00 30,182,754.00
+    l1tex__t_sectors_pipe_lsu_mem_global_op_st_lookup_miss.sum                                                          sector  3,371,678.00  3,371,678.00  3,371,678.00
+    l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum                                                                       sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_local_op_ld_lookup_hit.sum                                                            sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_local_op_ld_lookup_miss.sum                                                           sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum                                                                       sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_local_op_st_lookup_hit.sum                                                            sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_lsu_mem_local_op_st_lookup_miss.sum                                                           sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_atom.sum                                                                   sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_atom_lookup_hit.sum                                                        sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_atom_lookup_miss.sum                                                       sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_ld.sum                                                                     sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_ld_lookup_hit.sum                                                          sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_ld_lookup_miss.sum                                                         sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_red.sum                                                                    sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_red_lookup_hit.sum                                                         sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_red_lookup_miss.sum                                                        sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_st.sum                                                                     sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_st_lookup_hit.sum                                                          sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_surface_op_st_lookup_miss.sum                                                         sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_texture.sum                                                                           sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_texture_lookup_hit.sum                                                                sector          0.00          0.00          0.00
+    l1tex__t_sectors_pipe_tex_mem_texture_lookup_miss.sum                                                               sector          0.00          0.00          0.00
+    l1tex__tex_writeback_active.sum                                                                                      cycle          0.00          0.00          0.00
+    l1tex__tex_writeback_active.sum.pct_of_peak_sustained_elapsed                                                            %          0.00          0.00          0.00
+    sm__sass_inst_executed_op_ldgsts_cache_access.sum                                                                     inst          0.00          0.00          0.00
+    sm__sass_inst_executed_op_ldgsts_cache_bypass.sum                                                                     inst          0.00          0.00          0.00
+    sm__sass_l1tex_t_requests_pipe_lsu_mem_global_op_ldgsts_cache_access.sum                                           request          0.00          0.00          0.00
+    sm__sass_l1tex_t_requests_pipe_lsu_mem_global_op_ldgsts_cache_bypass.sum                                           request          0.00          0.00          0.00
+    sm__sass_l1tex_t_sectors_pipe_lsu_mem_global_op_ldgsts_cache_access.sum                                             sector          0.00          0.00          0.00
+    sm__sass_l1tex_t_sectors_pipe_lsu_mem_global_op_ldgsts_cache_access.sum.pct_of_peak_sustained_elapsed                    %          0.00          0.00          0.00
+    sm__sass_l1tex_t_sectors_pipe_lsu_mem_global_op_ldgsts_cache_bypass.sum                                             sector          0.00          0.00          0.00
+    sm__sass_l1tex_t_sectors_pipe_lsu_mem_global_op_ldgsts_cache_bypass.sum.pct_of_peak_sustained_elapsed                    %          0.00          0.00          0.00
+    smsp__inst_executed_op_generic_atom_dot_alu.sum                                                                       inst          0.00          0.00          0.00
+    smsp__inst_executed_op_generic_atom_dot_cas.sum                                                                       inst          0.00          0.00          0.00
+    smsp__inst_executed_op_global_red.sum                                                                                 inst          0.00          0.00          0.00
+    smsp__inst_executed_op_surface_atom_dot_alu.sum                                                                       inst          0.00          0.00          0.00
+    smsp__inst_executed_op_surface_atom_dot_cas.sum                                                                       inst          0.00          0.00          0.00
+    smsp__inst_executed_op_surface_ld.sum                                                                                 inst          0.00          0.00          0.00
+    smsp__inst_executed_op_surface_red.sum                                                                                inst          0.00          0.00          0.00
+    smsp__inst_executed_op_surface_st.sum                                                                                 inst          0.00          0.00          0.00
+    smsp__inst_executed_op_texture.sum                                                                                    inst          0.00          0.00          0.00
+    smsp__sass_inst_executed_op_global_ld.sum                                                                             inst 20,971,520.00 20,971,520.00 20,971,520.00
+    smsp__sass_inst_executed_op_global_st.sum                                                                             inst 33,554,432.00 33,554,432.00 33,554,432.00
+    smsp__sass_inst_executed_op_local_ld.sum                                                                              inst          0.00          0.00          0.00
+    smsp__sass_inst_executed_op_local_st.sum                                                                              inst          0.00          0.00          0.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_ldgsts_cache_access.sum                                                     0.00          0.00          0.00
+    smsp__sass_l1tex_data_pipe_lsu_wavefronts_mem_shared_op_ldgsts_cache_access.sum.pct_of_peak_sustained_elapsed            %          0.00          0.00          0.00
+    smsp__sass_l1tex_m_xbar2l1tex_read_sectors_mem_global_op_ldgsts_cache_bypass.sum                                    sector          0.00          0.00          0.00
+    smsp__sass_l1tex_m_xbar2l1tex_read_sectors_mem_global_op_ldgsts_cache_bypass.sum.pct_of_peak_sustained_elapsed           %          0.00          0.00          0.00
+    -------------------------------------------------------------------------------------------------------------- ----------- ------------- ------------- -------------
+
+    Table Name : L2 Cache
+    ---------------------------------------------------------------------------- -------------- -------------- -------------- --------------
+    Metric Name                                                                     Metric Unit        Minimum        Maximum        Average
+    ---------------------------------------------------------------------------- -------------- -------------- -------------- --------------
+    lts__t_requests.sum                                                                 request  53,311,918.00  53,311,918.00  53,311,918.00
+    lts__t_requests_srcunit_tex.sum                                                     request  53,311,826.00  53,311,826.00  53,311,826.00
+    lts__t_requests_srcunit_tex_op_atom_dot_alu.sum                                     request           0.00           0.00           0.00
+    lts__t_requests_srcunit_tex_op_atom_dot_cas.sum                                     request           0.00           0.00           0.00
+    lts__t_requests_srcunit_tex_op_read.sum                                             request  20,971,520.00  20,971,520.00  20,971,520.00
+    lts__t_requests_srcunit_tex_op_red.sum                                              request           0.00           0.00           0.00
+    lts__t_requests_srcunit_tex_op_write.sum                                            request  32,339,478.00  32,339,478.00  32,339,478.00
+    lts__t_sectors.avg.pct_of_peak_sustained_elapsed                                          %          16.25          16.25          16.25
+    lts__t_sectors.avg.peak_sustained                                              sector/cycle           2.00           2.00           2.00
+    lts__t_sectors.avg.per_cycle_elapsed                                           sector/cycle           0.32           0.32           0.32
+    lts__t_sectors.sum                                                                   sector 117,425,956.00 117,425,956.00 117,425,956.00
+    lts__t_sectors.sum.per_second                                                sector/nsecond          23.33          23.33          23.33
+    lts__t_sectors_aperture_device_lookup_miss.sum                                       sector  83,886,597.00  83,886,597.00  83,886,597.00
+    lts__t_sectors_aperture_peer_lookup_miss.sum                                         sector           0.00           0.00           0.00
+    lts__t_sectors_aperture_sysmem_lookup_miss.sum                                       sector           0.00           0.00           0.00
+    lts__t_sectors_data_ecc.avg.pct_of_peak_sustained_elapsed                                 %           0.00           0.00           0.00
+    lts__t_sectors_data_ecc.avg.peak_sustained                                     sector/cycle           8.00           8.00           8.00
+    lts__t_sectors_data_ecc.avg.per_cycle_elapsed                                  sector/cycle           0.00           0.00           0.00
+    lts__t_sectors_data_ecc.sum                                                          sector           0.00           0.00           0.00
+    lts__t_sectors_data_ecc.sum.per_second                                        sector/second           0.00           0.00           0.00
+    lts__t_sectors_lookup_hit.sum                                                        sector  33,567,855.00  33,567,855.00  33,567,855.00
+    lts__t_sectors_lookup_miss.sum                                                       sector  83,886,618.00  83,886,618.00  83,886,618.00
+    lts__t_sectors_srcunit_tex.avg.pct_of_peak_sustained_elapsed                              %          16.25          16.25          16.25
+    lts__t_sectors_srcunit_tex.avg.peak_sustained                                  sector/cycle           2.00           2.00           2.00
+    lts__t_sectors_srcunit_tex.avg.per_cycle_elapsed                               sector/cycle           0.32           0.32           0.32
+    lts__t_sectors_srcunit_tex.sum                                                       sector 117,420,028.00 117,420,028.00 117,420,028.00
+    lts__t_sectors_srcunit_tex.sum.per_second                                    sector/nsecond          23.33          23.33          23.33
+    lts__t_sectors_srcunit_tex_aperture_device_lookup_miss.sum                           sector  83,886,080.00  83,886,080.00  83,886,080.00
+    lts__t_sectors_srcunit_tex_aperture_device_op_atom_dot_alu_lookup_miss.sum           sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_device_op_atom_dot_cas_lookup_miss.sum           sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_device_op_read_lookup_miss.sum                   sector  83,886,080.00  83,886,080.00  83,886,080.00
+    lts__t_sectors_srcunit_tex_aperture_device_op_red_lookup_miss.sum                    sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_device_op_write_lookup_miss.sum                  sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_lookup_miss.sum                             sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_atom_dot_alu_lookup_miss.sum             sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_atom_dot_cas_lookup_miss.sum             sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_read_lookup_miss.sum                     sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_red_lookup_miss.sum                      sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_peer_op_write_lookup_miss.sum                    sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_lookup_miss.sum                           sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_atom_dot_alu_lookup_miss.sum           sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_atom_dot_cas_lookup_miss.sum           sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_read_lookup_miss.sum                   sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_red_lookup_miss.sum                    sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_aperture_sysmem_op_write_lookup_miss.sum                  sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_lookup_hit.sum                                            sector  33,533,929.00  33,533,929.00  33,533,929.00
+    lts__t_sectors_srcunit_tex_lookup_miss.sum                                           sector  83,886,080.00  83,886,080.00  83,886,080.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_alu.avg.pct_of_peak_sustained_elapsed              %           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_alu.avg.peak_sustained                  sector/cycle           1.00           1.00           1.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_alu.avg.per_cycle_elapsed               sector/cycle           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_alu.sum                                       sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_alu.sum.per_second                     sector/second           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_alu_lookup_hit.sum                            sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_alu_lookup_miss.sum                           sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_cas.avg.pct_of_peak_sustained_elapsed              %           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_cas.avg.peak_sustained                  sector/cycle           1.00           1.00           1.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_cas.avg.per_cycle_elapsed               sector/cycle           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_cas.sum                                       sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_cas.sum.per_second                     sector/second           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_cas_lookup_hit.sum                            sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_atom_dot_cas_lookup_miss.sum                           sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_read.avg.pct_of_peak_sustained_elapsed                      %          11.61          11.61          11.61
+    lts__t_sectors_srcunit_tex_op_read.avg.peak_sustained                          sector/cycle           2.00           2.00           2.00
+    lts__t_sectors_srcunit_tex_op_read.avg.per_cycle_elapsed                       sector/cycle           0.23           0.23           0.23
+    lts__t_sectors_srcunit_tex_op_read.sum                                               sector  83,886,080.00  83,886,080.00  83,886,080.00
+    lts__t_sectors_srcunit_tex_op_read.sum.per_second                            sector/nsecond          16.67          16.67          16.67
+    lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum                                    sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum                                   sector  83,886,080.00  83,886,080.00  83,886,080.00
+    lts__t_sectors_srcunit_tex_op_red.avg.pct_of_peak_sustained_elapsed                       %           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_red.avg.peak_sustained                           sector/cycle           1.00           1.00           1.00
+    lts__t_sectors_srcunit_tex_op_red.avg.per_cycle_elapsed                        sector/cycle           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_red.sum                                                sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_red.sum.per_second                              sector/second           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_red_lookup_hit.sum                                     sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_red_lookup_miss.sum                                    sector           0.00           0.00           0.00
+    lts__t_sectors_srcunit_tex_op_write.avg.pct_of_peak_sustained_elapsed                     %           9.28           9.28           9.28
+    lts__t_sectors_srcunit_tex_op_write.avg.peak_sustained                         sector/cycle           1.00           1.00           1.00
+    lts__t_sectors_srcunit_tex_op_write.avg.per_cycle_elapsed                      sector/cycle           0.09           0.09           0.09
+    lts__t_sectors_srcunit_tex_op_write.sum                                              sector  33,533,371.00  33,533,371.00  33,533,371.00
+    lts__t_sectors_srcunit_tex_op_write.sum.per_second                           sector/nsecond           6.66           6.66           6.66
+    lts__t_sectors_srcunit_tex_op_write_lookup_hit.sum                                   sector  33,533,752.00  33,533,752.00  33,533,752.00
+    lts__t_sectors_srcunit_tex_op_write_lookup_miss.sum                                  sector           0.00           0.00           0.00
+    ---------------------------------------------------------------------------- -------------- -------------- -------------- --------------
+
+    Table Name : L2 Cache Eviction Policies
+    ----------------------------------------------------------------------- ----------- ------------- ------------- -------------
+    Metric Name                                                             Metric Unit       Minimum       Maximum       Average
+    ----------------------------------------------------------------------- ----------- ------------- ------------- -------------
+    lts__t_sectors_evict_first_lookup_hit.sum                                    sector        288.00        288.00        288.00
+    lts__t_sectors_evict_first_lookup_miss.sum                                   sector        795.00        795.00        795.00
+    lts__t_sectors_evict_last_lookup_hit.sum                                     sector          0.00          0.00          0.00
+    lts__t_sectors_evict_last_lookup_miss.sum                                    sector          0.00          0.00          0.00
+    lts__t_sectors_evict_normal_demote_lookup_hit.sum                            sector          0.00          0.00          0.00
+    lts__t_sectors_evict_normal_demote_lookup_miss.sum                           sector          0.00          0.00          0.00
+    lts__t_sectors_evict_normal_lookup_hit.sum                                   sector 33,535,407.00 33,535,407.00 33,535,407.00
+    lts__t_sectors_evict_normal_lookup_miss.sum                                  sector 83,886,084.00 83,886,084.00 83,886,084.00
+    lts__t_sectors_srcunit_tex_evict_first_lookup_hit.sum                        sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_evict_first_lookup_miss.sum                       sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_evict_last_lookup_hit.sum                         sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_evict_last_lookup_miss.sum                        sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_evict_normal_demote_lookup_hit.sum                sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_evict_normal_demote_lookup_miss.sum               sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_evict_normal_lookup_hit.sum                       sector 33,533,709.00 33,533,709.00 33,533,709.00
+    lts__t_sectors_srcunit_tex_evict_normal_lookup_miss.sum                      sector 83,886,080.00 83,886,080.00 83,886,080.00
+    lts__t_sectors_srcunit_tex_op_atom_evict_first_lookup_hit.sum                sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_atom_evict_first_lookup_miss.sum               sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_atom_evict_last_lookup_hit.sum                 sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_atom_evict_last_lookup_miss.sum                sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_atom_evict_normal_lookup_hit.sum               sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_atom_evict_normal_lookup_miss.sum              sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_first_lookup_hit.sum                sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_first_lookup_miss.sum               sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_last_lookup_hit.sum                 sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_last_lookup_miss.sum                sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_normal_demote_lookup_hit.sum        sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_normal_demote_lookup_miss.sum       sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_normal_lookup_hit.sum               sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_read_evict_normal_lookup_miss.sum              sector 83,886,080.00 83,886,080.00 83,886,080.00
+    lts__t_sectors_srcunit_tex_op_write_evict_first_lookup_hit.sum               sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_write_evict_first_lookup_miss.sum              sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_write_evict_last_lookup_hit.sum                sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_write_evict_last_lookup_miss.sum               sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_write_evict_normal_demote_lookup_hit.sum       sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_write_evict_normal_demote_lookup_miss.sum      sector          0.00          0.00          0.00
+    lts__t_sectors_srcunit_tex_op_write_evict_normal_lookup_hit.sum              sector 33,533,480.00 33,533,480.00 33,533,480.00
+    lts__t_sectors_srcunit_tex_op_write_evict_normal_lookup_miss.sum             sector          0.00          0.00          0.00
+    ----------------------------------------------------------------------- ----------- ------------- ------------- -------------
+
+    Table Name : Device Memory
+    --------------------------------------------------- ------------ ------------- ------------- -------------
+    Metric Name                                          Metric Unit       Minimum       Maximum       Average
+    --------------------------------------------------- ------------ ------------- ------------- -------------
+    dram__bytes_read.sum                                       Gbyte          2.68          2.68          2.68
+    dram__bytes_read.sum.pct_of_peak_sustained_elapsed             %         54.26         54.26         54.26
+    dram__bytes_read.sum.per_second                     Gbyte/second        533.39        533.39        533.39
+    dram__bytes_write.sum                                      Mbyte        130.68        130.68        130.68
+    dram__bytes_write.sum.pct_of_peak_sustained_elapsed            %          2.64          2.64          2.64
+    dram__bytes_write.sum.per_second                    Gbyte/second         25.97         25.97         25.97
+    dram__sectors_read.sum                                    sector 83,886,084.00 83,886,084.00 83,886,084.00
+    dram__sectors_write.sum                                   sector  4,083,780.00  4,083,780.00  4,083,780.00
+    --------------------------------------------------- ------------ ------------- ------------- -------------
+
+    Section: NUMA Affinity
+    -------------------------- ----------- ------- ------- -------
+    Metric Name                Metric Unit Minimum Maximum Average
+    -------------------------- ----------- ------- ------- -------
+    CPU Affinity                              0.00    0.00    0.00
+    Device Names                              0.00    0.00    0.00
+    NUMA ID by CPU Affinity                   0.00    0.00    0.00
+    NUMA ID by Memory Affinity                0.00    0.00    0.00
+    -------------------------- ----------- ------- ------- -------
+
+    Section: NVLink Tables
+    Section: NVLink Topology
+    Section: Occupancy
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Block Limit SM                        block   24.00   24.00   24.00
+    Block Limit Registers                 block    3.00    3.00    3.00
+    Block Limit Shared Mem                block    6.00    6.00    6.00
+    Block Limit Warps                     block    3.00    3.00    3.00
+    Theoretical Active Warps per SM        warp   48.00   48.00   48.00
+    Theoretical Occupancy                     %  100.00  100.00  100.00
+    Achieved Occupancy                        %   91.49   91.49   91.49
+    Achieved Active Warps Per SM           warp   43.92   43.92   43.92
+    ------------------------------- ----------- ------- ------- -------
+
+    
+    Table Name : Impact of Varying Register Count Per Thread
+    --------------------------------- --------------- -------- -------- --------
+    Metric Name                           Metric Unit  Minimum  Maximum  Average
+    --------------------------------- --------------- -------- -------- --------
+    Warp Occupancy Per Register Count                 3,760.00 3,760.00 3,760.00
+    Registers Per Thread              register/thread    34.00    34.00    34.00
+    --------------------------------- --------------- -------- -------- --------
+
+    Table Name : Impact of Varying Block Size
+    ----------------------------- ----------- -------- -------- --------
+    Metric Name                   Metric Unit  Minimum  Maximum  Average
+    ----------------------------- ----------- -------- -------- --------
+    Block Size                                  512.00   512.00   512.00
+    Warp Occupancy Per Block Size             2,252.00 2,252.00 2,252.00
+    ----------------------------- ----------- -------- -------- --------
+
+    Table Name : Impact of Varying Shared Memory Usage Per Block
+    ---------------------------------- ----------- -------- -------- --------
+    Metric Name                        Metric Unit  Minimum  Maximum  Average
+    ---------------------------------- ----------- -------- -------- --------
+    Warp Occupancy Per Shared Mem Size             4,064.00 4,064.00 4,064.00
+    Shared Memory Per Block            Kbyte/block     5.12     5.12     5.12
+    ---------------------------------- ----------- -------- -------- --------
+
+    Section: Scheduler Statistics
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    One or More Eligible                      %   28.58   28.58   28.58
+    Issued Warp Per Scheduler                      0.29    0.29    0.29
+    No Eligible                               %   71.42   71.42   71.42
+    GPU Maximum Warps Per Scheduler        warp   12.00   12.00   12.00
+    Active Warps Per Scheduler             warp   10.93   10.93   10.93
+    Eligible Warps Per Scheduler           warp    1.44    1.44    1.44
+    ------------------------------- ----------- ------- ------- -------
+
+    
+    Table Name : Warps Per Scheduler
+    ------------------------------- ----------- ------- ------- -------
+    Metric Name                     Metric Unit Minimum Maximum Average
+    ------------------------------- ----------- ------- ------- -------
+    Issued Warp Per Scheduler                      0.29    0.29    0.29
+    Theoretical Warps Per Scheduler        warp   12.00   12.00   12.00
+    GPU Maximum Warps Per Scheduler        warp   12.00   12.00   12.00
+    Active Warps Per Scheduler             warp   10.93   10.93   10.93
+    Eligible Warps Per Scheduler           warp    1.44    1.44    1.44
+    ------------------------------- ----------- ------- ------- -------
+
+    Section: Source Counters
+    --------------------------------------------------------------------------------------------------------- ----------- ----------------- ----------------- -----------------
+    Metric Name                                                                                               Metric Unit           Minimum           Maximum           Average
+    --------------------------------------------------------------------------------------------------------- ----------- ----------------- ----------------- -----------------
+    Avg. Threads Executed                                                                                          thread             32.00             32.00             32.00
+    Avg. Predicated-On Threads Executed                                                                            thread             30.00             30.00             30.00
+    L1 Conflicts Shared N-Way                                                                                        byte              0.00              0.00              0.00
+    L1 Wavefronts Shared Excessive                                                                                   byte              0.00              0.00              0.00
+    L2 Theoretical Sectors Global Excessive                                                                          byte              0.00              0.00              0.00
+    Branch Instructions Ratio                                                                                           %              0.00              0.00              0.00
+    Elapsed Cycles                                                                                                  cycle     11,245,859.00     11,245,859.00     11,245,859.00
+    Instructions Executed                                                                                            inst  1,644,167,168.00  1,644,167,168.00  1,644,167,168.00
+    L1 Active Cycles                                                                                                cycle  1,438,272,831.00  1,438,272,831.00  1,438,272,831.00
+    L1 Elapsed Cycles                                                                                               cycle  1,438,906,602.00  1,438,906,602.00  1,438,906,602.00
+    Access Size                                                                                                                        0.00              0.00              0.00
+    Access Operation                                                                                                                   0.00              0.00              0.00
+    L1 Tag Requests Global                                                                                        sectors     54,525,952.00     54,525,952.00     54,525,952.00
+    L1 Wavefronts Shared                                                                                          sectors    574,619,648.00    574,619,648.00    574,619,648.00
+    L1 Wavefronts Shared Ideal                                                                                    sectors    574,619,648.00    574,619,648.00    574,619,648.00
+    L2 Theoretical Sectors Global                                                                                 sectors    117,440,512.00    117,440,512.00    117,440,512.00
+    L2 Theoretical Sectors Global Ideal                                                                           sectors    117,440,512.00    117,440,512.00    117,440,512.00
+    L2 Theoretical Sectors Local                                                                                  sectors              0.00              0.00              0.00
+    Address Space                                                                                                                      0.00              0.00              0.00
+    Divergent Branches                                                                                                                 0.00              0.00              0.00
+    Executed Instructions                                                                                            inst  1,644,167,168.00  1,644,167,168.00  1,644,167,168.00
+    Branch Instructions                                                                                              inst      4,194,304.00      4,194,304.00      4,194,304.00
+    # Samples                                                                                                                  1,404,588.00      1,404,588.00      1,404,588.00
+    smsp__pcsamp_warps_issue_stalled_barrier                                                                         warp              0.00              0.00              0.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_barrier_not_issued)                   warp              0.00              0.00              0.00
+    smsp__pcsamp_warps_issue_stalled_branch_resolving                                                                warp            901.00            901.00          1,802.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_branch_resolving_not_issued)          warp            544.00            544.00          1,088.00
+    smsp__pcsamp_warps_issue_stalled_dispatch_stall                                                                  warp          1,425.00          1,425.00          2,850.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_dispatch_stall_not_issued)            warp            222.00            222.00            444.00
+    smsp__pcsamp_warps_issue_stalled_drain                                                                           warp          3,865.00          3,865.00          7,730.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_drain_not_issued)                     warp          2,402.00          2,402.00          4,804.00
+    smsp__pcsamp_warps_issue_stalled_imc_miss                                                                        warp             68.00             68.00            136.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_imc_miss_not_issued)                  warp             55.00             55.00            110.00
+    smsp__pcsamp_warps_issue_stalled_lg_throttle                                                                     warp              7.00              7.00             14.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_lg_throttle_not_issued)               warp              2.00              2.00              4.00
+    smsp__pcsamp_warps_issue_stalled_long_scoreboard                                                                 warp         59,979.00         59,979.00        119,958.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_long_scoreboard_not_issued)           warp         43,399.00         43,399.00         86,798.00
+    smsp__pcsamp_warps_issue_stalled_math_pipe_throttle                                                              warp         11,253.00         11,253.00         22,506.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_math_pipe_throttle_not_issued)        warp          6,745.00          6,745.00         13,490.00
+    smsp__pcsamp_warps_issue_stalled_membar                                                                          byte              0.00              0.00              0.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_membar_not_issued)                    byte              0.00              0.00              0.00
+    smsp__pcsamp_warps_issue_stalled_mio_throttle                                                                    warp        872,790.00        872,790.00      1,745,580.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_mio_throttle_not_issued)              warp        744,186.00        744,186.00      1,488,372.00
+    smsp__pcsamp_warps_issue_stalled_misc                                                                            warp              0.00              0.00              0.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_misc_not_issued)                      warp              0.00              0.00              0.00
+    smsp__pcsamp_warps_issue_stalled_no_instructions                                                                 inst            695.00            695.00          1,390.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_no_instructions_not_issued)           inst            451.00            451.00            902.00
+    smsp__pcsamp_warps_issue_stalled_not_selected                                                                    warp        146,052.00        146,052.00        292,104.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_not_selected_not_issued)              warp              0.00              0.00              0.00
+    smsp__pcsamp_warps_issue_stalled_selected                                                                        warp         40,964.00         40,964.00         81,928.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_selected_not_issued)                  warp              0.00              0.00              0.00
+    smsp__pcsamp_warps_issue_stalled_short_scoreboard                                                                warp        193,556.00        193,556.00        387,112.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_short_scoreboard_not_issued)          warp        152,581.00        152,581.00        305,162.00
+    smsp__pcsamp_warps_issue_stalled_sleeping                                                                        warp              0.00              0.00              0.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_sleeping_not_issued)                  warp              0.00              0.00              0.00
+    smsp__pcsamp_warps_issue_stalled_tex_throttle                                                                    warp              0.00              0.00              0.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_tex_throttle_not_issued)              warp              0.00              0.00              0.00
+    smsp__pcsamp_warps_issue_stalled_wait                                                                            warp         73,033.00         73,033.00        146,066.00
+    Warp Stall Sampling (Not-issued Samples) (smsp__pcsamp_warps_issue_stalled_wait_not_issued)                      warp         47,686.00         47,686.00         95,372.00
+    Branch Efficiency                                                                                                   %              0.00              0.00              0.00
+    Avg. Divergent Branches                                                                                                            0.00              0.00              0.00
+    L2 Explicit Evict Policies                                                                                                         0.00              0.00              0.00
+    L2 Explicit Hit Policy Evict First                                                                               inst              0.00              0.00              0.00
+    L2 Explicit Hit Policy Evict Last                                                                                inst              0.00              0.00              0.00
+    L2 Explicit Hit Policy Evict Normal                                                                              inst              0.00              0.00              0.00
+    L2 Explicit Hit Policy Evict Normal Demote                                                                       inst              0.00              0.00              0.00
+    L2 Explicit Miss Policy Evict First                                                                              inst              0.00              0.00              0.00
+    L2 Explicit Miss Policy Evict Normal                                                                             inst              0.00              0.00              0.00
+    Thread Instructions Executed                                                                                     inst 52,613,349,376.00 52,613,349,376.00 52,613,349,376.00
+    Predicated-On Thread Instructions Executed                                                                       inst 50,029,658,112.00 50,029,658,112.00 50,029,658,112.00
+    --------------------------------------------------------------------------------------------------------- ----------- ----------------- ----------------- -----------------
+
+    Hotspot Locations
+    Table Name : Warp Stall Sampling (All Samples)
+    --------------------------------------------------- ----------- ---------- ---------- ------------
+    Metric Name                                         Metric Unit    Minimum    Maximum      Average
+    --------------------------------------------------- ----------- ---------- ---------- ------------
+    smsp__pcsamp_warps_issue_stalled_barrier                   warp       0.00       0.00         0.00
+    smsp__pcsamp_warps_issue_stalled_branch_resolving          warp     901.00     901.00     1,802.00
+    smsp__pcsamp_warps_issue_stalled_dispatch_stall            warp   1,425.00   1,425.00     2,850.00
+    smsp__pcsamp_warps_issue_stalled_drain                     warp   3,865.00   3,865.00     7,730.00
+    smsp__pcsamp_warps_issue_stalled_imc_miss                  warp      68.00      68.00       136.00
+    smsp__pcsamp_warps_issue_stalled_lg_throttle               warp       7.00       7.00        14.00
+    smsp__pcsamp_warps_issue_stalled_long_scoreboard           warp  59,979.00  59,979.00   119,958.00
+    smsp__pcsamp_warps_issue_stalled_math_pipe_throttle        warp  11,253.00  11,253.00    22,506.00
+    smsp__pcsamp_warps_issue_stalled_membar                    byte       0.00       0.00         0.00
+    smsp__pcsamp_warps_issue_stalled_mio_throttle              warp 872,790.00 872,790.00 1,745,580.00
+    smsp__pcsamp_warps_issue_stalled_misc                      warp       0.00       0.00         0.00
+    smsp__pcsamp_warps_issue_stalled_no_instructions           inst     695.00     695.00     1,390.00
+    smsp__pcsamp_warps_issue_stalled_not_selected              warp 146,052.00 146,052.00   292,104.00
+    smsp__pcsamp_warps_issue_stalled_selected                  warp  40,964.00  40,964.00    81,928.00
+    smsp__pcsamp_warps_issue_stalled_short_scoreboard          warp 193,556.00 193,556.00   387,112.00
+    smsp__pcsamp_warps_issue_stalled_sleeping                  warp       0.00       0.00         0.00
+    smsp__pcsamp_warps_issue_stalled_tex_throttle              warp       0.00       0.00         0.00
+    smsp__pcsamp_warps_issue_stalled_wait                      warp  73,033.00  73,033.00   146,066.00
+    --------------------------------------------------- ----------- ---------- ---------- ------------
+
+    Table Name : Most Instructions Executed
+    --------------------- ----------- ---------------- ---------------- ----------------
+    Metric Name           Metric Unit          Minimum          Maximum          Average
+    --------------------- ----------- ---------------- ---------------- ----------------
+    Instructions Executed        inst 1,644,167,168.00 1,644,167,168.00 1,644,167,168.00
+    --------------------- ----------- ---------------- ---------------- ----------------
+
+    Section: Warp State Statistics
+    ---------------------------------------- ----------- ------- ------- -------
+    Metric Name                              Metric Unit Minimum Maximum Average
+    ---------------------------------------- ----------- ------- ------- -------
+    Warp Cycles Per Issued Instruction             cycle   38.24   38.24   38.24
+    Warp Cycles Per Executed Instruction           cycle   38.24   38.24   38.24
+    Issued Warp Per Scheduler                               0.29    0.29    0.29
+    Avg. Active Threads Per Warp                           32.00   32.00   32.00
+    Avg. Not Predicated Off Threads Per Warp               30.43   30.43   30.43
+    ---------------------------------------- ----------- ------- ------- -------
+
+    
+    Table Name : Warp State (All Cycles)
+    ------------------------ ----------- ------- ------- -------
+    Metric Name              Metric Unit Minimum Maximum Average
+    ------------------------ ----------- ------- ------- -------
+    Stall Barrier                   inst    0.00    0.00    0.00
+    Stall Branch Resolving          inst    0.02    0.02    0.02
+    Stall Dispatch Stall            inst    0.03    0.03    0.03
+    Stall Drain                     inst    0.09    0.09    0.09
+    Stall IMC Miss                  inst    0.00    0.00    0.00
+    Stall LG Throttle               inst    0.00    0.00    0.00
+    Stall Long Scoreboard           inst    1.48    1.48    1.48
+    Stall Math Pipe Throttle        inst    0.25    0.25    0.25
+    Stall Membar                    inst    0.00    0.00    0.00
+    Stall MIO Throttle              inst   24.66   24.66   24.66
+    Stall Misc                      inst    0.00    0.00    0.00
+    Stall No Instruction            inst    0.03    0.03    0.03
+    Stall Not Selected              inst    4.06    4.06    4.06
+    Selected                        inst    1.00    1.00    1.00
+    Stall Short Scoreboard          inst    5.04    5.04    5.04
+    Stall Sleeping                  inst    0.00    0.00    0.00
+    Stall Tex Throttle              inst    0.00    0.00    0.00
+    Stall Wait                      inst    1.82    1.82    1.82
+    ------------------------ ----------- ------- ------- -------
+
+  Note: The shown averages are calculated as the arithmetic mean of the metric values after the evaluation of the    
+  metrics for each individual kernel launch.                                                                         
+  If aggregating across varying launch configurations (like shared memory, cache config settings), the arithmetic    
+  mean can be misleading and looking at the individual results is recommended instead.                               
+  This output mode is backwards compatible to the per-kernel summary output of nvprof                                
+

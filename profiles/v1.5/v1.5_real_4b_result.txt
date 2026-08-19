@@ -1,0 +1,20 @@
+Collected at    : 2026-08-19T17:11:34+08:00
+Source version  : v1.5
+Executable      : v1.5_real_4b
+
+GPU             : NVIDIA GeForce RTX 4090
+Grid            : <<<262144, 512>>>
+Warps/block     : 16
+Groups          : 4194304
+NUM_B_LISTS     : 4
+A memory        : 512.00 MiB
+B memory        : 2048.00 MiB
+
+V2 1A-NB Register Gather Compact
+Average time    : 3.150234 ms
+Groups/s        : 1331.426 M
+A-B pairs/s     : 5325.706 M
+Logical traffic : 2.819 GB
+Effective BW    : 894.719 GB/s
+Search stages   : 39 / group
+Wrong results   : 0
