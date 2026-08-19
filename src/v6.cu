@@ -47,28 +47,26 @@ static_assert(BLOCK_SIZE % WARP_SIZE == 0, "Invalid block size");
 static_assert(!SUBWARP_FORCE_EARLY_CP_ASYNC || SUBWARP_USE_CP_ASYNC,
               "Forced async scheduling requires cp.async");
 
-#define CUDA_CHECK(call)                                                   \
-    do {                                                                   \
-        cudaError_t err = (call);                                          \
-        if (err != cudaSuccess) {                                          \
-            fprintf(stderr, "CUDA error %s:%d: %s\n",                    \
-                    __FILE__, __LINE__, cudaGetErrorString(err));          \
-            exit(EXIT_FAILURE);                                            \
-        }                                                                  \
+#define CUDA_CHECK(call)                                                       \
+    do {                                                                       \
+        cudaError_t err = (call);                                              \
+        if (err != cudaSuccess) {                                              \
+            fprintf(stderr, "CUDA error %s:%d: %s\n", __FILE__, __LINE__,      \
+                    cudaGetErrorString(err));                                  \
+            exit(EXIT_FAILURE);                                                \
+        }                                                                      \
     } while (0)
 
 #if SUBWARP_USE_CP_ASYNC
-__device__ __forceinline__ void cp_async_16(
-    void* shared_ptr,
-    const void* global_ptr)
+__device__ __forceinline__ void cp_async_16(void* shared_ptr,
+                                            const void* global_ptr)
 {
-    unsigned shared_address = static_cast<unsigned>(
-        __cvta_generic_to_shared(shared_ptr));
-    asm volatile(
-        "cp.async.cg.shared.global [%0], [%1], 16;\n"
-        :
-        : "r"(shared_address), "l"(global_ptr)
-        : "memory");
+    unsigned shared_address =
+        static_cast<unsigned>(__cvta_generic_to_shared(shared_ptr));
+    asm volatile("cp.async.cg.shared.global [%0], [%1], 16;\n"
+                 :
+                 : "r"(shared_address), "l"(global_ptr)
+                 : "memory");
 }
 
 __device__ __forceinline__ void cp_async_commit()
@@ -85,9 +83,7 @@ __device__ __forceinline__ void cp_async_wait_all()
 __device__ __forceinline__ unsigned bfe(unsigned lane, unsigned pos)
 {
     unsigned result;
-    asm("bfe.u32 %0,%1,%2,%3;"
-        : "=r"(result)
-        : "r"(lane), "r"(pos), "r"(1));
+    asm("bfe.u32 %0,%1,%2,%3;" : "=r"(result) : "r"(lane), "r"(pos), "r"(1));
     return result;
 }
 
@@ -151,10 +147,8 @@ __device__ __forceinline__ int component(const int4& values, int index)
     return values.w;
 }
 
-__global__ void init_input_kernel(
-    int* __restrict__ input_a,
-    int* __restrict__ input_b,
-    size_t num_groups)
+__global__ void init_input_kernel(int* __restrict__ input_a,
+                                  int* __restrict__ input_b, size_t num_groups)
 {
     size_t idx = static_cast<size_t>(blockIdx.x) * blockDim.x + threadIdx.x;
     size_t total = num_groups * WARP_SIZE;
@@ -167,8 +161,7 @@ __global__ void init_input_kernel(
 
 #pragma unroll
     for (int b_id = 0; b_id < NUM_B_LISTS; ++b_id) {
-        size_t b_idx =
-            (group_id * NUM_B_LISTS + b_id) * WARP_SIZE + lane;
+        size_t b_idx = (group_id * NUM_B_LISTS + b_id) * WARP_SIZE + lane;
 
         if ((lane & 1) == 0) {
             int a_lane = (lane * 7 + b_id * 3) & 31;
@@ -182,15 +175,11 @@ __global__ void init_input_kernel(
 
 // One warp handles one group. Four 8-lane subwarps handle B0..B3.
 // Each lane loads four adjacent values from its subwarp's B list.
-__global__ __launch_bounds__(BLOCK_SIZE)
-void SUBWARP_KERNEL(
-    const int* __restrict__ input_a,
-    const int* __restrict__ input_b,
-    int* __restrict__ output_count,
-    int* __restrict__ output_checksum)
+__global__ __launch_bounds__(BLOCK_SIZE) void SUBWARP_KERNEL(
+    const int* __restrict__ input_a, const int* __restrict__ input_b,
+    int* __restrict__ output_count, int* __restrict__ output_checksum)
 {
-    __shared__ int s_compact[
-        NUM_WARPS * NUM_B_LISTS * COMPACT_STRIDE];
+    __shared__ int s_compact[NUM_WARPS * NUM_B_LISTS * COMPACT_STRIDE];
     __shared__ int s_output_count[RESULTS_PER_BLOCK];
     __shared__ int s_output_checksum[RESULTS_PER_BLOCK];
 #if SUBWARP_USE_CP_ASYNC
@@ -207,13 +196,11 @@ void SUBWARP_KERNEL(
     int sub_lane = lane & 7;
     unsigned subwarp_mask = 0xffu << (b_id * SUBWARP_SIZE);
 
-    size_t group_id =
-        static_cast<size_t>(blockIdx.x) * NUM_WARPS + warp_id;
+    size_t group_id = static_cast<size_t>(blockIdx.x) * NUM_WARPS + warp_id;
 
     // V5 layout: [group][B][element]. Eight adjacent int4 loads cover
     // one 128-byte B list; all 32 lanes cover the four lists contiguously.
-    const int4* __restrict__ input_b4 =
-        reinterpret_cast<const int4*>(input_b);
+    const int4* __restrict__ input_b4 = reinterpret_cast<const int4*>(input_b);
     const int4* b_source = input_b4 + group_id * WARP_SIZE + lane;
 
 #if SUBWARP_USE_CP_ASYNC && SUBWARP_FORCE_EARLY_CP_ASYNC
@@ -266,23 +253,20 @@ void SUBWARP_KERNEL(
 
 #pragma unroll
     for (int offset = 4; offset > 0; offset >>= 1) {
-        valid_mask |= __shfl_down_sync(
-            subwarp_mask, valid_mask, offset, SUBWARP_SIZE);
+        valid_mask |=
+            __shfl_down_sync(subwarp_mask, valid_mask, offset, SUBWARP_SIZE);
     }
 
-    valid_mask = __shfl_sync(
-        subwarp_mask, valid_mask, 0, SUBWARP_SIZE);
+    valid_mask = __shfl_sync(subwarp_mask, valid_mask, 0, SUBWARP_SIZE);
     int count = __popc(valid_mask);
 
-    int compact_base =
-        (warp_id * NUM_B_LISTS + b_id) * COMPACT_STRIDE;
+    int compact_base = (warp_id * NUM_B_LISTS + b_id) * COMPACT_STRIDE;
 
 #pragma unroll
     for (int item = 0; item < VALUES_PER_THREAD; ++item) {
         if ((local_valid >> item) & 1u) {
             int position = sub_lane * VALUES_PER_THREAD + item;
-            unsigned lower_mask =
-                position == 0 ? 0u : ((1u << position) - 1u);
+            unsigned lower_mask = position == 0 ? 0u : ((1u << position) - 1u);
             int rank = __popc(valid_mask & lower_mask);
             s_compact[compact_base + rank] = component(b_values, item);
         }
@@ -302,12 +286,11 @@ void SUBWARP_KERNEL(
 
 #pragma unroll
     for (int offset = 4; offset > 0; offset >>= 1) {
-        local_sum += __shfl_down_sync(
-            subwarp_mask, local_sum, offset, SUBWARP_SIZE);
+        local_sum +=
+            __shfl_down_sync(subwarp_mask, local_sum, offset, SUBWARP_SIZE);
     }
 
-    int checksum = __shfl_sync(
-        subwarp_mask, local_sum, 0, SUBWARP_SIZE);
+    int checksum = __shfl_sync(subwarp_mask, local_sum, 0, SUBWARP_SIZE);
 
     if (sub_lane == 0) {
         int local_result = warp_id * NUM_B_LISTS + b_id;
@@ -335,8 +318,7 @@ int main()
 
     const size_t num_groups = TOTAL_GROUPS;
     const size_t num_a_elements = num_groups * WARP_SIZE;
-    const size_t num_b_elements =
-        num_groups * NUM_B_LISTS * WARP_SIZE;
+    const size_t num_b_elements = num_groups * NUM_B_LISTS * WARP_SIZE;
     const size_t num_outputs = num_groups * NUM_B_LISTS;
     const size_t a_bytes = num_a_elements * sizeof(int);
     const size_t b_bytes = num_b_elements * sizeof(int);
@@ -363,17 +345,16 @@ int main()
 
     constexpr int INIT_THREADS = 256;
     size_t init_total = num_groups * WARP_SIZE;
-    int init_blocks = static_cast<int>(
-        (init_total + INIT_THREADS - 1) / INIT_THREADS);
-    init_input_kernel<<<init_blocks, INIT_THREADS>>>(
-        d_a, d_b, num_groups);
+    int init_blocks =
+        static_cast<int>((init_total + INIT_THREADS - 1) / INIT_THREADS);
+    init_input_kernel<<<init_blocks, INIT_THREADS>>>(d_a, d_b, num_groups);
     CUDA_CHECK(cudaGetLastError());
     CUDA_CHECK(cudaDeviceSynchronize());
 
     constexpr int WARMUP = 10;
     for (int i = 0; i < WARMUP; ++i) {
-        SUBWARP_KERNEL<<<NUM_BLOCKS, BLOCK_SIZE>>>(
-            d_a, d_b, d_count, d_checksum);
+        SUBWARP_KERNEL<<<NUM_BLOCKS, BLOCK_SIZE>>>(d_a, d_b, d_count,
+                                                   d_checksum);
     }
     CUDA_CHECK(cudaGetLastError());
     CUDA_CHECK(cudaDeviceSynchronize());
@@ -385,8 +366,8 @@ int main()
     CUDA_CHECK(cudaEventCreate(&stop));
     CUDA_CHECK(cudaEventRecord(start));
     for (int i = 0; i < REPEAT; ++i) {
-        SUBWARP_KERNEL<<<NUM_BLOCKS, BLOCK_SIZE>>>(
-            d_a, d_b, d_count, d_checksum);
+        SUBWARP_KERNEL<<<NUM_BLOCKS, BLOCK_SIZE>>>(d_a, d_b, d_count,
+                                                   d_checksum);
     }
     CUDA_CHECK(cudaEventRecord(stop));
     CUDA_CHECK(cudaEventSynchronize(stop));
@@ -397,19 +378,17 @@ int main()
 
     std::vector<int> h_count(num_outputs);
     std::vector<int> h_checksum(num_outputs);
-    CUDA_CHECK(cudaMemcpy(
-        h_count.data(), d_count, output_bytes, cudaMemcpyDeviceToHost));
-    CUDA_CHECK(cudaMemcpy(
-        h_checksum.data(), d_checksum, output_bytes, cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy(h_count.data(), d_count, output_bytes,
+                          cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy(h_checksum.data(), d_checksum, output_bytes,
+                          cudaMemcpyDeviceToHost));
 
     size_t errors = 0;
     for (size_t group = 0; group < num_groups; ++group) {
         for (int b_id = 0; b_id < NUM_B_LISTS; ++b_id) {
             size_t idx = group * NUM_B_LISTS + b_id;
-            int expected_checksum =
-                16 * 4096 + 16 * b_id * 128 + 256;
-            if (h_count[idx] != 16 ||
-                h_checksum[idx] != expected_checksum) {
+            int expected_checksum = 16 * 4096 + 16 * b_id * 128 + 256;
+            if (h_count[idx] != 16 || h_checksum[idx] != expected_checksum) {
                 if (errors < 10) {
                     printf("Mismatch group=%zu b=%d count=%d checksum=%d "
                            "expected_count=16 expected_checksum=%d\n",
