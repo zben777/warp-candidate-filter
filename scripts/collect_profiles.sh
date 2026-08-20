@@ -65,6 +65,7 @@ versions=(
     v6
     v7
     v8
+    v9
 )
 
 
@@ -81,6 +82,7 @@ declare -A kernels=(
     [v6]=v6_subwarp_int4_kernel
     [v7]=v7_subwarp_cp_async_kernel
     [v8]=v8_subwarp_early_cp_async_kernel
+    [v9]=v9_subwarp_cp_before_a_kernel
 )
 
 

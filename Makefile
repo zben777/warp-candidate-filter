@@ -18,7 +18,8 @@ SOURCES := \
 	src/v5.cu \
 	src/v6.cu \
 	src/v7.cu \
-	src/v8.cu
+	src/v8.cu \
+	src/v9.cu
 
 VERSIONS := $(basename $(notdir $(SOURCES)))
 TARGETS := $(addprefix $(BUILD_DIR)/,$(VERSIONS))
@@ -35,6 +36,7 @@ $(BUILD_DIR)/%: src/%.cu | $(BUILD_DIR)
 
 $(BUILD_DIR)/v7: src/v6.cu
 $(BUILD_DIR)/v8: src/v6.cu
+$(BUILD_DIR)/v9: src/v6.cu
 
 $(BUILD_DIR):
 	mkdir -p $@

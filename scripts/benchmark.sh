@@ -23,6 +23,7 @@ versions=(
     v6
     v7
     v8
+    v9
 )
 
 if ! [[ "$runs" =~ ^[1-9][0-9]*$ ]]; then

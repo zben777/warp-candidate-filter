@@ -42,6 +42,7 @@ The default benchmark processes 4,194,304 groups, or 16,777,216 A-B pairs.
 | `v6` | Four 8-lane subwarps with direct 128-bit candidate loads |
 | `v7` | `v6` mapping with 16-byte `cp.async` candidate prefetch |
 | `v8` | `v7` with an enforced early `cp.async` scheduling point |
+| `v9` | `v7` with noinline boundaries forcing B issue before A load |
 
 `v7` is the recommended implementation. It preserves the original input
 contract while matching the best measured performance of the layout-changing
@@ -77,6 +78,7 @@ report zero validation errors. Times are means over five benchmark runs.
 | `v6` | 3.019 ms | 933.5 GB/s | 1.39x |
 | `v7` | **3.018 ms** | **934.0 GB/s** | **1.39x** |
 | `v8` | 3.021 ms | 932.9 GB/s | 1.39x |
+| `v9` | 3.030 ms | 930.4 GB/s | 1.39x |
 
 The executable's `Effective BW` field is logical traffic divided by kernel
 time; it is useful for comparing variants but is not a hardware-counter
@@ -105,6 +107,13 @@ This complete overlap is reproducible, but the required A Shared Memory
 round-trip and block barrier raise mean time to 3.021 ms, about 0.13% slower
 than `v7`. The experiment therefore remains in the mainline as a documented
 scheduling result, while `v7` remains the recommended implementation.
+
+`v9` tests a stricter schedule: a noinline issue helper forces `LDGSTS B`
+before `LDG A`, and a second noinline helper keeps `wait_group 0` after the
+complete A sort. SASS confirms the intended order without staging A in Shared
+Memory or adding a block barrier. The two device calls raise mean time to
+3.030 ms, about 0.41% slower than `v7`, so the extra overlap still does not
+offset its scheduling cost at the DRAM bandwidth limit.
 
 ## Requirements
 

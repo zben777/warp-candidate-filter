@@ -20,6 +20,10 @@
 #define SUBWARP_FORCE_EARLY_CP_ASYNC 0
 #endif
 
+#ifndef SUBWARP_FORCE_CP_BEFORE_A
+#define SUBWARP_FORCE_CP_BEFORE_A 0
+#endif
+
 #ifndef SUBWARP_KERNEL
 #define SUBWARP_KERNEL v6_subwarp_int4_kernel
 #endif
@@ -46,6 +50,10 @@ static_assert(NUM_B_LISTS == 4, "V6 requires four B lists");
 static_assert(BLOCK_SIZE % WARP_SIZE == 0, "Invalid block size");
 static_assert(!SUBWARP_FORCE_EARLY_CP_ASYNC || SUBWARP_USE_CP_ASYNC,
               "Forced async scheduling requires cp.async");
+static_assert(!SUBWARP_FORCE_CP_BEFORE_A || SUBWARP_USE_CP_ASYNC,
+              "Async scheduling boundary requires cp.async");
+static_assert(!(SUBWARP_FORCE_EARLY_CP_ASYNC && SUBWARP_FORCE_CP_BEFORE_A),
+              "Select only one forced async scheduling strategy");
 
 #define CUDA_CHECK(call)                                                       \
     do {                                                                       \
@@ -78,6 +86,22 @@ __device__ __forceinline__ void cp_async_wait_all()
 {
     asm volatile("cp.async.wait_group 0;\n" : : : "memory");
 }
+
+#if SUBWARP_FORCE_CP_BEFORE_A
+__device__ __noinline__ void cp_async_issue_before_a(void* shared_ptr,
+                                                     const void* global_ptr)
+{
+    cp_async_16(shared_ptr, global_ptr);
+    cp_async_commit();
+}
+
+__device__ __noinline__ int cp_async_wait_after_a(int sorted_a)
+{
+    cp_async_wait_all();
+    return sorted_a;
+}
+#endif
+
 #endif
 
 __device__ __forceinline__ unsigned bfe(unsigned lane, unsigned pos)
@@ -213,6 +237,12 @@ __global__ __launch_bounds__(BLOCK_SIZE) void SUBWARP_KERNEL(
     cp_async_commit();
     __syncthreads();
     a_value = s_schedule_a[tx];
+#elif SUBWARP_USE_CP_ASYNC && SUBWARP_FORCE_CP_BEFORE_A
+    // Real call boundaries keep the asynchronous issue before A and the wait
+    // after the sort without staging A or synchronizing threads.
+    cp_async_issue_before_a(&s_b4[tx], b_source);
+
+    int a_value = input_a[group_id * WARP_SIZE + lane];
 #elif SUBWARP_USE_CP_ASYNC
     // Baseline async path retained for a strict scheduling comparison.
     cp_async_16(&s_b4[tx], b_source);
@@ -232,8 +262,13 @@ __global__ __launch_bounds__(BLOCK_SIZE) void SUBWARP_KERNEL(
     sorted_a = s_schedule_a[tx];
 #endif
 
-#if SUBWARP_USE_CP_ASYNC
+#if SUBWARP_FORCE_CP_BEFORE_A
+    sorted_a = cp_async_wait_after_a(sorted_a);
+#elif SUBWARP_USE_CP_ASYNC
     cp_async_wait_all();
+#endif
+
+#if SUBWARP_USE_CP_ASYNC
     int4 b_values = s_b4[tx];
 #else
     int4 b_values = *b_source;
